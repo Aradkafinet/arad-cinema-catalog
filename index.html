@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>کاتالوگ فیلم و سریال</title>
+<style>
+:root{
+  --bg:#050607; --panel:#0d1012; --panel2:#111518; --line:#202629;
+  --text:#f4f6f7; --muted:#9aa2a8; --red:#e50914; --red2:#ff2935;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+  radial-gradient(circle at 80% -10%,rgba(229,9,20,.16),transparent 32%),
+  radial-gradient(circle at 10% 20%,rgba(255,255,255,.035),transparent 28%),
+  var(--bg);color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+}
+a{color:inherit;text-decoration:none}
+.shell{max-width:1440px;margin:auto;padding:18px 24px 48px}
+.nav{
+  height:64px;border:1px solid var(--line);border-radius:16px;background:rgba(9,11,12,.9);
+  display:flex;align-items:center;gap:22px;padding:0 18px;position:sticky;top:10px;z-index:10;
+  backdrop-filter:blur(14px);box-shadow:0 12px 40px rgba(0,0,0,.25)
+}
+.logo{font-weight:900;letter-spacing:.5px;color:#fff;font-size:18px;white-space:nowrap}
+.logo b{color:var(--red)}
+.navlinks{display:flex;gap:18px;font-size:13px;color:#c9ced1}
+.navlinks span{cursor:pointer}
+.search{
+  margin-right:auto;display:flex;align-items:center;gap:8px;width:min(330px,34vw);
+  background:#15191c;border:1px solid #252b2e;border-radius:10px;padding:8px 12px;color:#889096
+}
+.search input{width:100%;border:0;outline:0;background:transparent;color:#fff;font:inherit}
+.hero{
+  margin-top:16px;min-height:360px;border-radius:18px;overflow:hidden;position:relative;
+  border:1px solid var(--line);background:
+  linear-gradient(90deg,rgba(5,6,7,.96) 0%,rgba(5,6,7,.72) 40%,rgba(5,6,7,.16) 100%),
+  radial-gradient(circle at 74% 45%,rgba(229,9,20,.18),transparent 26%),
+  linear-gradient(135deg,#151a1e,#050607 65%);
+}
+.hero:after{
+  content:"";position:absolute;inset:0;background:
+  linear-gradient(135deg,transparent 40%,rgba(255,255,255,.035) 40.2%,transparent 40.8%),
+  repeating-linear-gradient(110deg,transparent 0 26px,rgba(255,255,255,.02) 27px,transparent 28px);
+  pointer-events:none
+}
+.hero-inner{position:relative;z-index:1;max-width:720px;padding:52px 54px}
+.kicker{display:inline-flex;gap:8px;align-items:center;color:#ff5961;font-size:12px;font-weight:700}
+.dot{width:7px;height:7px;background:var(--red);border-radius:50%}
+.hero h1{font-size:42px;line-height:1.1;margin:16px 0 6px}
+.hero .fa-title{font-size:19px;color:#d6dade;margin-bottom:18px}
+.meta{display:flex;gap:9px;flex-wrap:wrap;color:#d3d7d9;font-size:12px}
+.badge{border:1px solid #3a4145;background:rgba(255,255,255,.035);padding:5px 9px;border-radius:7px}
+.rating{color:#ffd66b;font-weight:700}
+.hero p{color:#b9c0c5;line-height:2;font-size:13px;max-width:640px}
+.btns{display:flex;gap:10px;margin-top:20px}
+.btn{border:0;border-radius:9px;padding:11px 17px;font-weight:700;cursor:pointer}
+.primary{background:var(--red);color:#fff}.secondary{background:#1a1f22;color:#e7eaec;border:1px solid #2b3236}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:30px 2px 12px}
+.section-head h2{font-size:17px;margin:0}.section-head small{color:#7f898f}
+.chips{display:flex;gap:8px;overflow:auto;padding-bottom:5px}
+.chip{border:1px solid #272d30;background:#101416;color:#adb4b8;border-radius:8px;padding:8px 13px;white-space:nowrap;cursor:pointer;font-size:12px}
+.chip.active,.chip:hover{background:var(--red);border-color:var(--red);color:#fff}
+.grid{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;
+}
+.card{
+  background:linear-gradient(180deg,#121618,#0b0e10);border:1px solid #1e2427;border-radius:12px;
+  overflow:hidden;min-width:0;cursor:pointer;transition:.2s transform,.2s border-color,.2s box-shadow
+}
+.card:hover{transform:translateY(-5px);border-color:#3a4145;box-shadow:0 16px 30px rgba(0,0,0,.3)}
+.poster{
+  aspect-ratio:2/3;position:relative;display:flex;align-items:flex-end;padding:0;
+  overflow:hidden;background:#101416;
+}
+.poster img{width:100%;height:100%;object-fit:cover;display:block}
+.poster.no-poster{padding:11px;background:
+  radial-gradient(circle at 25% 25%,rgba(255,255,255,.18),transparent 25%),
+  linear-gradient(145deg,var(--c1),var(--c2));}
+.poster:before{
+  content:"";position:absolute;inset:-20%;background:
+    linear-gradient(120deg,transparent 42%,rgba(255,255,255,.08) 43%,transparent 44%),
+    linear-gradient(25deg,transparent 50%,rgba(0,0,0,.28) 51%,transparent 53%);
+  transform:rotate(-8deg)
+}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}.poster img+ .year,.poster img+ .year + .score{z-index:2}.poster-title{position:relative;z-index:1;font-size:16px;line-height:1.25;font-weight:900;text-shadow:0 2px 12px #000}
+.year{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 6px;font-size:10px}
+.score{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.72);border-radius:6px;padding:4px 6px;font-size:10px;color:#ffd66b}
+.card-body{padding:10px 11px 12px}
+.en{font-size:11px;color:#e9edef;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;text-align:right}
+.fa{font-size:12px;font-weight:700;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.genre{color:#788289;font-size:10px;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.empty{padding:50px;text-align:center;color:#899297;border:1px dashed #2b3236;border-radius:12px;grid-column:1/-1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
+.modal.show{display:flex}
+.modal-box{width:min(760px,100%);background:#0d1012;border:1px solid #2b3236;border-radius:18px;overflow:hidden;box-shadow:0 30px 100px #000}
+.modal-top{padding:22px 24px;border-bottom:1px solid #22292c;display:flex;justify-content:space-between;gap:15px}
+.close{background:#181d20;color:#fff;border:1px solid #2b3236;border-radius:8px;width:36px;height:36px;cursor:pointer}
+.modal-content{padding:24px}.modal-poster-wrap{display:flex;justify-content:center;margin-bottom:20px}.modal-poster{width:min(240px,55vw);aspect-ratio:2/3;object-fit:cover;border-radius:12px;border:1px solid #2b3236;box-shadow:0 18px 45px rgba(0,0,0,.45)}.modal-poster-placeholder{width:min(240px,55vw);aspect-ratio:2/3;border-radius:12px;border:1px dashed #3a4145;background:linear-gradient(145deg,#1a2024,#0b0e10);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#7f898f;font-weight:700}.modal-content p{line-height:2;color:#b8c0c5;font-size:13px}
+.statrow{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:#151a1d;border:1px solid #242b2f;border-radius:9px;padding:8px 11px;font-size:12px}
+.footer{color:#697277;text-align:center;font-size:11px;padding:38px 0 5px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:850px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.navlinks{display:none}.search{width:45vw}.hero-inner{padding:38px 28px}}
+@media(max-width:600px){.shell{padding:10px 10px 35px}.nav{height:58px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.hero{min-height:330px}.hero h1{font-size:31px}.hero-inner{padding:30px 22px}.search{width:48vw}.nav{gap:10px}}
+
+.category-nav{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 22px}
+.category-btn{background:#111517;color:#d9dddf;border:1px solid #2a3033;border-radius:9px;padding:10px 15px;font-size:12px;font-weight:700;cursor:pointer}
+.category-btn:hover,.category-btn.active{background:#e50914;border-color:#e50914;color:#fff}
+.category-btn.series{font-size:14px;font-weight:900;padding:11px 20px;border-color:#e50914;box-shadow:0 0 0 1px rgba(229,9,20,.25)}
+.cat-section{margin:26px 0 34px}
+.cat-title{display:flex;align-items:center;justify-content:space-between;border-right:4px solid #e50914;padding:4px 12px 8px 0;margin-bottom:13px}
+.cat-title span{font-size:20px;font-weight:900}
+.cat-title small{color:#7f898f;font-size:11px}
+.show-all{margin-top:14px;background:#171c1f;color:#ddd;border:1px solid #30373a;border-radius:8px;padding:9px 14px;cursor:pointer}
+.series-section .cat-title span{font-size:24px;font-weight:1000}
+
+.cat-section{margin:28px 0 40px}
+.cat-title{display:flex;align-items:center;justify-content:space-between;border-right:5px solid #e50914;padding:5px 14px 9px 0;margin-bottom:14px}
+.cat-title span{font-size:21px;font-weight:900}
+.cat-title small{color:#7f898f;font-size:11px}
+.series-section{margin-top:52px;padding-top:10px;border-top:1px solid #242a2d}
+.series-section .cat-title{border-right-width:7px}
+.series-section .cat-title span{font-size:29px;font-weight:1000}
+
+.top-category-nav{
+  position:sticky;top:84px;z-index:9;
+  display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;
+  margin:12px 0 16px;padding:9px 10px;
+  background:rgba(8,10,11,.94);border:1px solid #252b2e;border-radius:13px;
+  backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.22)
+}
+.top-category-nav a{
+  color:#f1f3f4;text-decoration:none;font-size:13px;font-weight:900;
+  padding:9px 13px;border-radius:8px;border:1px solid transparent;
+  transition:.18s ease;white-space:nowrap
+}
+.top-category-nav a:hover{
+  background:#e50914;border-color:#e50914;color:#fff;transform:translateY(-1px)
+}
+.top-category-nav .series-link{
+  font-size:15px;font-weight:1000;background:#181c1f;border-color:#e50914;color:#fff;
+}
+html{scroll-behavior:smooth}
+.cat-section{scroll-margin-top:145px}
+@media(max-width:700px){
+  .top-category-nav{top:70px;justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}
+  .top-category-nav a{font-size:12px}
+  .cat-section{scroll-margin-top:135px}
+}
+<style>.featured-showcase{position:relative;margin:8px 0 30px;overflow:hidden;border-radius:18px}.featured-label{display:flex;align-items:center;gap:12px;margin:0 0 10px;padding-right:5px}.featured-label span{font-size:23px;font-weight:1000}.featured-label small{color:#8e989e;font-size:11px}.featured-slider{position:relative;height:390px;border-radius:18px;overflow:hidden;background:#0e1113}.featured-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transform:scale(1.02);transition:opacity .7s ease,transform 6.5s ease;pointer-events:none}.featured-slide.active{opacity:1;visibility:visible;transform:scale(1);pointer-events:auto;z-index:1}.featured-backdrop{position:absolute;inset:0;overflow:hidden;background:#101417}.featured-backdrop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}.featured-backdrop::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#080a0b 0%,rgba(8,10,11,.94) 30%,rgba(8,10,11,.55) 62%,rgba(8,10,11,.20) 100%)}.featured-no-poster{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--slide-bg);font-size:34px;font-weight:1000;color:rgba(255,255,255,.18);padding:30px;text-align:center}.featured-content{position:absolute;inset:0;display:flex;align-items:flex-end;padding:34px;max-width:760px;z-index:2}.featured-copy{direction:rtl;text-align:right}.featured-kicker{display:inline-block;background:#e50914;color:#fff;border-radius:5px;padding:5px 9px;font-size:10px;font-weight:900;margin-bottom:10px}.featured-fa{font-size:31px;font-weight:1000;line-height:1.2;margin-bottom:5px}.featured-en{font-size:13px;color:#c7cdd0;direction:ltr;text-align:right;margin-bottom:13px}.featured-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.featured-meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:5px 8px;border-radius:5px;font-size:10px}.featured-summary{color:#d8dddf;font-size:12px;line-height:1.9;max-width:600px;margin:0}.featured-dots{display:flex;gap:6px;justify-content:center;margin-top:10px}.featured-dot{width:7px;height:7px;border:0;border-radius:50%;background:#596166;cursor:pointer;padding:0}.featured-dot.active{width:22px;border-radius:4px;background:#e50914}.featured-arrow{position:absolute;top:55%;transform:translateY(-50%);width:38px;height:52px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(0,0,0,.48);color:#fff;font-size:32px;cursor:pointer;z-index:4}.featured-arrow:hover{background:#e50914}.featured-arrow.prev{right:12px}.featured-arrow.next{left:12px}@media(max-width:700px){.featured-slider{height:420px}.featured-content{padding:22px 18px}.featured-fa{font-size:24px}.featured-summary{font-size:11px}.featured-arrow{display:none}}</style></style>
+<!-- POSTER SYNC: 71 unique poster files matched to 72 catalog rows. Unmatched source poster files after deduplication: 0. -->
+</head>
+<body>
+<div class="shell">
+  <nav class="nav">
+    <div class="logo"><b>ARAD</b> CATALOG</div>
+    <div class="navlinks">
+      <span onclick="setGenre('همه')">خانه</span>
+      <span onclick="setGenre('اکشن')">فیلم‌ها</span>
+      <span onclick="setGenre('انیمیشن')">انیمیشن</span>
+      <span onclick="setGenre('علمی‌تخیلی')">علمی‌تخیلی</span>
+    </div>
+    <label class="search">⌕ <input id="search" placeholder="جستجوی نام فیلم..." autocomplete="off"></label>
+  </nav>
+  <section class="featured-showcase"><div class="featured-label"><span>ویژه</span><small>پیشنهاد مدیر</small></div><div class="featured-slider" id="featuredSlider"></div><div class="featured-dots" id="featuredDots"></div><button class="featured-arrow prev" id="featuredPrev">‹</button><button class="featured-arrow next" id="featuredNext">›</button></section><nav class="top-category-nav" aria-label="دسته‌بندی‌ها">
+    <a href="#cat-اکشن">اکشن</a>
+    <a href="#cat-ماجراجویی">ماجراجویی</a>
+    <a href="#cat-علمی‌تخیلی">علمی‌تخیلی</a>
+    <a href="#cat-درام">درام</a>
+    <a href="#cat-انیمه-و-انیمیشن">انیمه و انیمیشن</a>
+    <a href="#cat-هندی">هندی</a>
+    <a href="#cat-ترسناک">ترسناک</a>
+    <a class="iranian-link" href="#cat-فیلم‌های-ایرانی">فیلم‌های ایرانی</a>
+    <a class="series-link" href="#cat-سریال‌ها">سریال‌ها</a>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="kicker"><span class="dot"></span> پیشنهاد ویژه کاتالوگ</div>
+      <h1 id="heroEn"></h1>
+      <div class="fa-title" id="heroFa"></div>
+      <div class="meta" id="heroMeta"></div>
+      <p id="heroDesc"></p>
+      <div class="btns">
+        <button class="btn primary" onclick="openDetails(featured)">جزئیات</button>
+        <button class="btn secondary" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">مشاهده کاتالوگ</button>
+      </div>
+    </div>
+  </section>
+  <div class="section-head" id="catalog">
+    <h2>فیلم‌ها بر اساس دسته‌بندی</h2>
+    <small id="count"></small>
+  </div>
+  <div id="categorySections"></div>
+  <main class="grid" id="grid" style="display:none"></main>
+
+
+
+  <div class="footer">کاتالوگ ساخته‌شده بر اساس فایل «عناوین فیلم و سریال با جزئیات»</div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-top">
+      <div>
+        <div id="mFa" style="font-weight:900;font-size:21px"></div>
+        <div id="mEn" style="color:#aeb6bb;margin-top:7px;direction:ltr;text-align:right"></div>
+      </div>
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-poster-wrap" id="mPoster"></div>
+      <div class="statrow" id="mStats"></div>
+      <p id="mDesc"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const data = [["1", "6 Underground", "شش زیرزمینی", "2019", "اکشن، هیجانی", "گروهی از افراد متخصص با مرگ جعلی خود، برای مقابله با جنایتکاران وارد عملیات‌های خطرناک می‌شوند.", "6.1"], ["2", "Abduction", "آدم‌ربایی", "2011", "اکشن، هیجانی، معمایی", "جوانی متوجه می‌شود زندگی گذشته‌اش آن چیزی نیست که تصور می‌کرد و وارد ماجرایی خطرناک می‌شود.", "5.1"], ["3", "Ant-Man and the Wasp", "مرد مورچه‌ای و زنبورک", "2018", "اکشن، ماجراجویی، علمی‌تخیلی", "اسکات لنگ همراه با هوپ ون داین در مأموریتی برای کشف رازهای گذشته خانواده هوپ همکاری می‌کند.", "7.0"], ["4", "Avengers: Infinity War", "انتقام‌جویان: جنگ ابدیت", "2018", "اکشن، ماجراجویی، علمی‌تخیلی", "قهرمانان مارول برای جلوگیری از نابودی جهان توسط تانوس متحد می‌شوند.", "8.4"], ["500", "Creed", "کرید", "2015", "درام، ورزشی، اکشن", "آدونیس جانسون، پسر نامشروع اپولو کرید، برای اثبات توانایی‌های خود در دنیای بوکس از راکی بالبوا می‌خواهد مربی‌اش شود.", "7.6"], ["501", "Creed II", "کرید ۲", "2018", "درام، ورزشی، اکشن", "آدونیس کرید برای رویارویی با ویکتور دراگو، پسر روسی مردی که سال‌ها پیش پدرش را در رینگ کشته بود، آماده می‌شود و با سایه گذشته خانواده‌اش روبه‌رو می‌شود.", "7.0"], ["5", "Creed III", "کرید ۳", "2023", "درام، ورزشی، اکشن", "آدونیس کرید با گذشته خود روبه‌رو می‌شود و باید برای یک مبارزه سرنوشت‌ساز آماده شود.", "6.7"], ["6", "The First King / Romulus and Remus", "اولین پادشاه", "2019", "درام، تاریخی، ماجراجویی", "داستان افسانه‌ای برادرانی که طبق روایت‌ها شهر رم را بنیان گذاشتند.", "5.8"], ["7", "Rudhramadevi", "رودرامادوی", "2015", "هندی، اکشن، تاریخی، درام", "داستان زندگی ملکه‌ای جنگجو که برای حفظ پادشاهی خود مبارزه می‌کند.", "5.7"], ["8", "Samson", "سامسون", "2018", "اکشن، تاریخی، درام", "داستان قهرمان کتاب مقدس که با قدرت و ایمان خود با دشمنان مبارزه می‌کند.", "4.4"], ["9", "Sanada 10 Braves", "۱۰ دلاور سانادا", "2016", "اکشن، تاریخی، ماجراجویی", "داستان گروهی از جنگجویان ژاپنی که در دوران جنگ‌های داخلی مبارزه می‌کنند.", "5.4"], ["10", "Seventh Son", "هفتمین پسر", "2014", "اکشن، فانتزی، ماجراجویی", "جوانی که آخرین بازمانده یک نسل خاص است، برای مبارزه با نیروهای تاریکی آموزش می‌بیند.", "5.5"], ["11", "The Great Battle", "نبرد بزرگ", "2018", "اکشن، تاریخی، جنگی", "داستان مقاومت یک قلعه کره‌ای در برابر ارتش قدرتمند چین باستان.", "7.0"], ["12", "The Great Wall", "دیوار بزرگ", "2016", "اکشن، فانتزی، ماجراجویی", "سربازانی در چین باستان از دیوار بزرگ در برابر موجودات خطرناک دفاع می‌کنند.", "5.9"], ["13", "The Huntress: Rune of the Dead", "شکارچی: رون مردگان", "2019", "ترسناک، فانتزی، ماجراجویی", "یک زن جنگجو در دنیایی تاریک با تهدیدهای مرگبار روبه‌رو می‌شود.", "3.7"], ["14", "The Lost Viking", "وایکینگ گمشده", "2018", "اکشن، ماجراجویی، تاریخی", "وایکینگی جوان پس از تبعید برای بقا و یافتن جایگاه خود تلاش می‌کند.", "4.1"], ["15", "Troy", "تروآ", "2004", "درام، تاریخی، جنگی", "داستان جنگ تاریخی میان یونان و شهر تروآ و نبرد قهرمانانی چون آشیل.", "7.3"], ["16", "Big Hero 6", "شش قهرمان بزرگ", "2014", "انیمیشن، ماجراجویی، خانوادگی", "پسری نابغه با کمک یک ربات دوست‌داشتنی و گروهی از قهرمانان، با تهدیدی بزرگ مقابله می‌کند.", "7.8"], ["17", "The Mitchells vs. the Machines", "خانواده میچل علیه ماشین‌ها", "2021", "انیمیشن، کمدی، ماجراجویی", "یک خانواده در سفر جاده‌ای خود باید با شورش ماشین‌ها مقابله کنند.", "7.6"], ["18", "Batman Begins", "بتمن آغاز می‌کند", "2005", "اکشن، جنایی، درام", "بروس وین پس از سال‌ها آموزش به شهر گاتهام بازمی‌گردد تا با جرم و فساد مبارزه کند.", "8.2"], ["19", "Bumblebee", "بامبلبی", "2018", "اکشن، علمی‌تخیلی، ماجراجویی", "یک دختر نوجوان رباتی از نژاد ترانسفورمرها را پیدا می‌کند و با او دوست می‌شود.", "6.7"], ["20", "Close", "نزدیک", "2019", "اکشن، هیجانی", "یک محافظ شخصی برای نجات جان یک دختر ثروتمند وارد مأموریتی خطرناک می‌شود.", "5.6"], ["21", "Deadpool", "ددپول", "2016", "اکشن، کمدی، ماجراجویی", "یک مزدور با قدرت‌های ویژه پس از آزمایش‌های غیرانسانی تبدیل به قهرمانی شوخ‌طبع می‌شود.", "8.0"], ["22", "Fast & Furious Presents: Hobbs & Shaw", "هابز و شاو", "2019", "اکشن، ماجراجویی، علمی‌تخیلی", "دو دشمن قدیمی مجبور می‌شوند برای مقابله با یک تهدید جهانی با هم متحد شوند.", "6.5"], ["23", "Godzilla vs. Kong", "گودزیلا علیه کونگ", "2021", "اکشن، علمی‌تخیلی، ماجراجویی", "دو هیولای افسانه‌ای در نبردی عظیم با یکدیگر روبه‌رو می‌شوند.", "6.3"], ["24", "Jack the Giant Slayer", "جک غول‌کش", "2013", "اکشن، فانتزی، ماجراجویی", "جوانی ساده‌دل با باز کردن دریچه‌ای به دنیای غول‌ها وارد ماجرایی بزرگ می‌شود.", "5.8"], ["25", "Kingsglaive: Final Fantasy XV", "کینگس‌گلیو: فاینال فانتزی ۱۵", "2016", "انیمیشن، اکشن، فانتزی", "گروهی از سربازان ویژه برای دفاع از پادشاهی خود می‌جنگند.", "6.7"], ["26", "Mission: Impossible – Fallout", "مأموریت غیرممکن: فال‌اوت", "2018", "اکشن، ماجراجویی، هیجانی", "ایتن هانت برای جلوگیری از یک فاجعه هسته‌ای وارد خطرناک‌ترین مأموریت خود می‌شود.", "7.7"], ["27", "Prometheus", "پرومتئوس", "2012", "علمی‌تخیلی، ترسناک، ماجراجویی", "گروهی از دانشمندان در جستجوی منشأ انسان به سیاره‌ای ناشناخته سفر می‌کنند.", "7.0"], ["28", "Red Sparrow", "گنجشک سرخ", "2018", "درام، جاسوسی، هیجانی", "یک بالرین روسی مجبور می‌شود به یک مأمور مخفی تبدیل شود.", "6.6"], ["29", "Shang-Chi and the Legend of the Ten Rings", "شانگ‌چی و افسانه ده حلقه", "2021", "اکشن، ماجراجویی، فانتزی", "شانگ‌چی با گذشته مرموز خود و سازمان ده حلقه روبه‌رو می‌شود.", "7.4"], ["30", "Spider-Man", "مرد عنکبوتی", "2002", "اکشن، علمی‌تخیلی، ماجراجویی", "پیتر پارکر پس از نیش یک عنکبوت جهش‌یافته قدرت‌های خارق‌العاده پیدا می‌کند.", "7.4"], ["31", "The Amazing Spider-Man 2", "مرد عنکبوتی شگفت‌انگیز ۲", "2014", "اکشن، ماجراجویی، علمی‌تخیلی", "مرد عنکبوتی با دشمنان جدید و مشکلات شخصی زندگی‌اش روبه‌رو می‌شود.", "6.6"], ["32", "The Incredible Hulk", "هالک شگفت‌انگیز", "2008", "اکشن، علمی‌تخیلی، ماجراجویی", "بروس بنر تلاش می‌کند درمانی برای نیروی خشمگین درون خود پیدا کند.", "6.6"], ["33", "Thor: Ragnarok", "ثور: رگناروک", "2017", "اکشن، فانتزی، ماجراجویی", "ثور برای نجات آسگارد باید با هلا، الهه مرگ، مبارزه کند.", "7.9"], ["34", "Victor Frankenstein", "ویکتور فرانکنشتاین", "2015", "درام، ترسناک، علمی‌تخیلی", "روایتی تازه از رابطه ویکتور فرانکنشتاین و دستیارش ایگور در ساخت موجودی مصنوعی.", "5.9"], ["35", "47 Meters Down: Uncaged", "۴۷ متر پایین‌تر: بدون قفس", "2019", "ترسناک، ماجراجویی، هیجانی", "چهار دختر در یک غار زیرآبی گرفتار کوسه‌های خطرناک می‌شوند.", "5.0"], ["36", "Abigail", "ابیگیل", "2019", "ترسناک، فانتزی، ماجراجویی", "دختری جوان در شهری قرنطینه‌شده رازهای عجیبی درباره خود کشف می‌کند.", "4.8"], ["37", "Aquaman", "آکوامن", "2018", "اکشن، فانتزی، ماجراجویی", "آرتور کری برای دفاع از دنیای زیر آب و خشکی باید جایگاه واقعی خود را بپذیرد.", "6.8"], ["38", "Avengers: Age of Ultron", "انتقام‌جویان: عصر اولتران", "2015", "اکشن، ماجراجویی، علمی‌تخیلی", "انتقام‌جویان با هوش مصنوعی خطرناکی به نام اولتران روبه‌رو می‌شوند.", "7.3"], ["39", "Captain America: Civil War", "کاپیتان آمریکا: جنگ داخلی", "2016", "اکشن، علمی‌تخیلی، ماجراجویی", "اختلاف میان قهرمانان مارول باعث رویارویی کاپیتان آمریکا و آیرون من می‌شود.", "7.8"], ["40", "Code 8", "کد ۸", "2019", "اکشن، علمی‌تخیلی، جنایی", "جوانی با قدرت‌های ویژه برای کمک به خانواده‌اش وارد دنیای جرم و خلافکاران می‌شود.", "6.1"], ["41", "Deadpool 2", "ددپول ۲", "2018", "اکشن، کمدی، علمی‌تخیلی", "ددپول برای محافظت از یک نوجوان جهش‌یافته در برابر دشمنی خطرناک تلاش می‌کند.", "7.5"], ["42", "Extraction", "استخراج", "2020", "اکشن، هیجانی، درام", "یک مزدور حرفه‌ای برای نجات پسر یک خلافکار بزرگ وارد مأموریتی مرگبار می‌شود.", "6.8"], ["43", "Green Lantern", "فانوس سبز", "2011", "اکشن، علمی‌تخیلی، ماجراجویی", "خلبانی به عضویت گروهی بین‌کهکشانی از محافظان صلح درمی‌آید.", "5.5"], ["44", "John Wick: Chapter 2", "جان ویک: قسمت دوم", "2017", "اکشن، جنایی، هیجانی", "جان ویک مجبور می‌شود به دنیای آدمکش‌ها بازگردد و مأموریتی خطرناک انجام دهد.", "7.4"], ["45", "Love and Monsters", "عشق و هیولاها", "2020", "ماجراجویی، کمدی، علمی‌تخیلی", "جوانی پس از نابودی جهان توسط هیولاها برای پیدا کردن عشق قدیمی خود سفری خطرناک را آغاز می‌کند.", "6.9"], ["46", "Mortal Kombat II", "مورتال کامبت ۲", "2026", "فانتزی تاریک، هنرهای رزمی، فانتزی ماورایی", "قهرمانان محبوب که این بار توسط جانی کیج همراه شده‌اند، در نبردی نهایی مقابل یکدیگر قرار می‌گیرند تا با تهدید شائو کان که موجودیت قلمرو زمین و مدافعان آن را تهدید می‌کند، مقابله کنند.", "6.3", "1h 56m", "", ""], ["47", "Radius", "شعاع", "2017", "علمی‌تخیلی، هیجانی، معمایی", "مردی پس از یک حادثه متوجه می‌شود هر موجود زنده‌ای که به او نزدیک شود می‌میرد.", "6.2"], ["48", "Red Notice", "اعلان قرمز", "2021", "اکشن، کمدی، جنایی", "یک مأمور اف‌بی‌آی برای دستگیری یک دزد آثار هنری با او همکاری می‌کند.", "6.3"], ["49", "Skyscraper", "آسمان‌خراش", "2018", "اکشن، هیجانی", "یک مأمور سابق برای نجات خانواده‌اش از بلندترین ساختمان جهان تلاش می‌کند.", "5.8"], ["50", "Spider-Man: Far from Home", "مرد عنکبوتی: دور از خانه", "2019", "اکشن، علمی‌تخیلی، ماجراجویی", "پیتر پارکر در سفری اروپایی با تهدیدی جدید روبه‌رو می‌شود.", "7.4"], ["51", "The Dark Knight", "شوالیه تاریکی", "2008", "اکشن، جنایی، درام", "بتمن برای مقابله با جوکر، خطرناک‌ترین دشمن خود، وارد نبردی بزرگ می‌شود.", "9.0"], ["52", "The Legend of Tarzan", "افسانه تارزان", "2016", "اکشن، ماجراجویی، درام", "تارزان پس از سال‌ها زندگی در تمدن، دوباره به جنگل بازمی‌گردد.", "6.2"], ["53", "Transformers: Dark of the Moon", "تبدیل‌شوندگان: نیمه تاریک ماه", "2011", "اکشن، علمی‌تخیلی، ماجراجویی", "نبرد میان اتوبات‌ها و دسپتیکان‌ها با کشف رازهای ماه شدت می‌گیرد.", "6.2"], ["54", "Warm Bodies", "بدن‌های گرم", "2013", "ترسناک، کمدی، عاشقانه", "یک زامبی جوان پس از نجات دختری انسان شروع به تغییر می‌کند.", "6.8"], ["55", "1917", "۱۹۱۷", "2019", "درام، جنگی، تاریخی", "دو سرباز در جنگ جهانی اول مأمور رساندن پیامی حیاتی می‌شوند.", "8.2"], ["56", "Alpha", "آلفا", "2018", "ماجراجویی، درام، تاریخی", "جوانی در عصر یخبندان با یک گرگ دوست می‌شود و برای بقا تلاش می‌کند.", "6.6"], ["57", "Arthur & Merlin: Knights of Camelot", "آرتور و مرلین: شوالیه‌های کاملوت", "2020", "اکشن، ماجراجویی، تاریخی", "شاه آرتور برای دفاع از سرزمین خود در برابر دشمنان بازمی‌گردد.", "3.4"], ["58", "Avengers: Endgame", "انتقام‌جویان: پایان بازی", "2019", "اکشن، علمی‌تخیلی، ماجراجویی", "قهرمانان باقی‌مانده برای بازگرداندن قربانیان تانوس نقشه‌ای بزرگ اجرا می‌کنند.", "8.4"], ["59", "Black Panther", "پلنگ سیاه", "2018", "اکشن، علمی‌تخیلی، ماجراجویی", "پادشاه واکاندا باید از کشور و میراث خود در برابر دشمنی قدرتمند دفاع کند.", "7.3"], ["60", "Captain Marvel", "کاپیتان مارول", "2019", "اکشن، علمی‌تخیلی، ماجراجویی", "خلبانی با قدرت‌های خارق‌العاده در جنگی میان کهکشانی گرفتار می‌شود.", "6.8"], ["61", "Crawl", "خزیدن", "2019", "ترسناک، هیجانی، ماجراجویی", "دختری در جریان طوفان شدید همراه پدرش در خانه‌ای گرفتار تمساح‌ها می‌شود.", "6.1"], ["62", "Doctor Strange", "دکتر استرنج", "2016", "اکشن، فانتزی، ماجراجویی", "جراح نابغه‌ای پس از حادثه‌ای به استاد هنرهای جادویی تبدیل می‌شود.", "7.5"], ["63", "Fantastic Beasts and Where to Find Them", "جانوران شگفت‌انگیز و زیستگاه آن‌ها", "2016", "فانتزی، ماجراجویی، خانوادگی", "جادوگری جوان با موجودات جادویی وارد ماجرایی خطرناک در نیویورک می‌شود.", "7.2"], ["64", "Focus", "تمرکز", "2015", "کمدی، جنایی، درام", "یک کلاهبردار حرفه‌ای به زنی جوان آموزش سرقت می‌دهد اما رابطه‌ای پیچیده شکل می‌گیرد.", "6.6"], ["65", "Hacksaw Ridge", "ستیغ هکساو", "2016", "درام، جنگی، تاریخی", "سربازی که از کشتن امتناع می‌کند در جنگ جهانی دوم به قهرمانی بزرگ تبدیل می‌شود.", "8.1"], ["66", "John Wick: Chapter 3 – Parabellum", "جان ویک: قسمت سوم – پارابلوم", "2019", "اکشن، جنایی، هیجانی", "جان ویک پس از نقض قوانین انجمن قاتلان، باید برای زنده ماندن با دشمنان زیادی مبارزه کند.", "7.4"], ["67", "Mechanic: Resurrection", "مکانیک: رستاخیز", "2016", "اکشن، جنایی، هیجانی", "آرتور بیشاپ مجبور می‌شود برای نجات زنی که دوستش دارد سه ترور غیرممکن انجام دهد.", "5.7"], ["68", "Mowgli: Legend of the Jungle", "موگلی: افسانه جنگل", "2018", "ماجراجویی، درام، فانتزی", "پسری که توسط گرگ‌ها بزرگ شده باید جایگاه خود را میان انسان‌ها و حیوانات پیدا کند.", "6.5"], ["69", "Rampage", "خشم", "2018", "اکشن، علمی‌تخیلی، ماجراجویی", "یک گوریل غول‌پیکر جهش‌یافته و دو حیوان دیگر شهر را تهدید می‌کنند.", "6.1"], ["70", "xXx: Return of Xander Cage", "سه ایکس: بازگشت زندر کیج", "2017", "اکشن، ماجراجویی، هیجانی", "جاسوس ماجراجو زندر کیج برای مقابله با گروهی خطرناک بازمی‌گردد.", "5.2"], ["71", "Spectral", "طیف", "2016", "اکشن، علمی‌تخیلی، هیجانی", "یک گروه نظامی با موجوداتی مرموز و نامرئی در یک منطقه جنگی روبه‌رو می‌شود.", "6.3"], ["72", "Tau", "تاو", "2018", "علمی‌تخیلی، ترسناک، هیجانی", "زنی جوان توسط هوش مصنوعی پیشرفته‌ای در خانه‌ای زندانی می‌شود و برای فرار تلاش می‌کند.", "5.8"], ["73", "The Dark Knight Rises", "شوالیه تاریکی برمی‌خیزد", "2012", "اکشن، جنایی، درام", "بتمن پس از سال‌ها بازگشت تا از گاتهام در برابر دشمنی قدرتمند دفاع کند.", "8.4"], ["74", "The Mummy", "مومیایی", "2017", "اکشن، ماجراجویی، فانتزی", "یک سرباز باستانی را آزاد می‌کند که قصد انتقام از جهان را دارد.", "5.4"], ["75", "Venom", "ونوم", "2018", "اکشن، علمی‌تخیلی، ماجراجویی", "خبرنگاری پس از پیوند با موجودی بیگانه به قدرتی خطرناک دست پیدا می‌کند.", "6.6"], ["76", "Wonder Woman 1984", "زن شگفت‌انگیز ۱۹۸۴", "2020", "اکشن، فانتزی، ماجراجویی", "دایانا با دشمنانی جدید در دوران جنگ سرد روبه‌رو می‌شود.", "5.4"], ["77", "Wolf Warriors 2", "جنگجویان گرگ ۲", "2017", "اکشن، جنگی، هیجانی", "یک سرباز چینی در آفریقا برای نجات مردم درگیر جنگ می‌شود.", "5.9"], ["78", "Anna", "آنا", "2019", "اکشن، جاسوسی، هیجانی", "یک زن جوان روسی که قاتل حرفه‌ای شده، بین مأموریت‌های خطرناک گرفتار می‌شود.", "6.6"], ["79", "Ashfall", "خاکستر", "2019", "اکشن، ماجراجویی، هیجانی", "پس از فوران یک آتشفشان عظیم، گروهی برای جلوگیری از فاجعه تلاش می‌کنند.", "6.2"], ["80", "Bad Boys for Life", "پسران بد تا ابد", "2020", "اکشن، کمدی، جنایی", "دو پلیس قدیمی برای مقابله با یک دشمن خطرناک دوباره کنار هم قرار می‌گیرند.", "6.5"], ["81", "Bloodshot", "بلادشات", "2020", "اکشن، علمی‌تخیلی، ماجراجویی", "سربازی کشته‌شده با فناوری جدید زنده می‌شود و به دنبال انتقام می‌رود.", "5.7"], ["82", "Chappie", "چپی", "2015", "اکشن، علمی‌تخیلی، درام", "یک ربات دارای هوش مصنوعی احساسات انسانی پیدا می‌کند و باید مسیر خود را انتخاب کند.", "6.8"], ["83", "Dark Phoenix", "ققنوس تاریک", "2019", "اکشن، علمی‌تخیلی، ماجراجویی", "قدرت‌های جین گری افزایش می‌یابد و اعضای ایکس‌من با بحرانی بزرگ روبه‌رو می‌شوند.", "5.7"], ["84", "Dunkirk", "دانکرک", "2017", "درام، جنگی، تاریخی", "داستان نجات صدها هزار سرباز در جریان جنگ جهانی دوم.", "7.8"], ["85", "Fantastic Four", "چهار شگفت‌انگیز", "2015", "اکشن، علمی‌تخیلی، ماجراجویی", "چهار جوان پس از آزمایشی علمی به قدرت‌های خارق‌العاده دست پیدا می‌کنند.", "4.3"], ["86", "Ford v Ferrari", "فورد در برابر فراری", "2019", "درام، ورزشی، تاریخی", "داستان تلاش مهندسان و رانندگان برای ساخت خودرویی برتر در مسابقات لمان.", "8.1"], ["87", "Hunter Killer", "شکارچی قاتل", "2018", "اکشن، جنگی، هیجانی", "یک زیردریایی آمریکایی برای جلوگیری از جنگ جهانی وارد عملیاتی خطرناک می‌شود.", "6.6"], ["88", "Jumanji: Welcome to the Jungle", "جومانجی: به جنگل خوش آمدید", "2017", "ماجراجویی، کمدی، فانتزی", "چهار نوجوان وارد دنیای یک بازی جادویی می‌شوند و باید برای خروج تلاش کنند.", "6.9"], ["89", "Men in Black: International", "مردان سیاه‌پوش: بین‌المللی", "2019", "اکشن، کمدی، علمی‌تخیلی", "ماموران سازمان مردان سیاه‌پوش با تهدیدی جدید از موجودات فضایی روبه‌رو می‌شوند.", "5.6"], ["90", "No Time to Die", "زمانی برای مردن نیست", "2021", "اکشن، جاسوسی، هیجانی", "جیمز باند پس از بازنشستگی برای مقابله با دشمنی خطرناک بازمی‌گردد.", "7.3"], ["91", "Revenge", "انتقام", "2017", "اکشن، ترسناک، هیجانی", "زنی پس از خیانت و حمله‌ای خشونت‌آمیز، برای انتقام از مهاجمانش بازمی‌گردد.", "6.4"], ["92", "Spider-Man 3", "مرد عنکبوتی ۳", "2007", "اکشن، علمی‌تخیلی، ماجراجویی", "پیتر پارکر با دشمنان جدید و تاریکی درون خودش روبه‌رو می‌شود.", "6.3"], ["93", "Terminator: Dark Fate", "نابودگر: سرنوشت تاریک", "2019", "اکشن، علمی‌تخیلی، ماجراجویی", "سارا کانر برای محافظت از دختری جوان در برابر یک نابودگر جدید بازمی‌گردد.", "6.2"], ["94", "The Equalizer", "ایکوالایزر", "2014", "اکشن، جنایی، هیجانی", "مردی با گذشته‌ای مرموز برای دفاع از افراد بی‌گناه وارد مبارزه با خلافکاران می‌شود.", "7.2"], ["95", "Venom: Let There Be Carnage", "ونوم ۲", "2021", "اکشن، علمی‌تخیلی، ماجراجویی", "ونوم در برابر یک قاتل زنجیره‌ای خطرناک قرار می‌گیرد و با تهدیدی تازه روبه‌رو می‌شود.", "6.6"], ["96", "Wonder Woman", "زن شگفت‌انگیز", "2017", "اکشن، فانتزی، ماجراجویی", "دایانا، شاهزاده آمازون، برای پایان دادن به جنگ جهانی اول وارد نبرد می‌شود.", "7.3"], ["97", "2:22", "۲:۲۲", "2017", "معمایی، هیجانی، عاشقانه", "مردی پس از دیدن اتفاقات تکرارشونده در ساعت ۲:۲۲ راز بزرگی را دنبال می‌کند.", "5.7"], ["98", "Arrival", "ورود", "2016", "علمی‌تخیلی، درام، معمایی", "یک زبان‌شناس برای برقراری ارتباط با موجودات فضایی به کار گرفته می‌شود.", "7.9"], ["99", "Inception", "تلقین", "2010", "علمی‌تخیلی، اکشن، هیجانی", "دزدی که وارد خواب افراد می‌شود مأموریتی غیرممکن دریافت می‌کند.", "8.8"], ["100", "Interstellar", "میان‌ستاره‌ای", "2014", "علمی‌تخیلی، درام، ماجراجویی", "گروهی از فضانوردان برای یافتن خانه‌ای جدید برای بشر از میان کهکشان سفر می‌کنند.", "8.7"], ["101", "Jumanji: The Next Level", "جومانجی: مرحله بعدی", "2019", "ماجراجویی، کمدی، علمی‌تخیلی", "گروه دوستان دوباره وارد بازی جومانجی می‌شوند اما این بار با چالش‌های جدید.", "6.7"], ["102", "Murder on the Orient Express", "قتل در قطار سریع‌السیر شرق", "2017", "جنایی، درام، معمایی", "کارآگاه پوآرو باید راز قتل یک مسافر در قطاری لوکس را حل کند.", "6.5"], ["103", "Pacific Rim", "حاشیه اقیانوس آرام", "2013", "اکشن، علمی‌تخیلی، ماجراجویی", "خلبانان ربات‌های غول‌پیکر برای دفاع از زمین در برابر هیولاها می‌جنگند.", "6.9"], ["104", "Passengers", "مسافران", "2016", "علمی‌تخیلی، درام، عاشقانه", "دو مسافر فضایی زودتر از موعد از خواب مصنوعی بیدار می‌شوند و در سفینه‌ای تنها می‌مانند.", "7.0"], ["105", "Ready Player One", "بازیکن شماره یک آماده", "2018", "علمی‌تخیلی، اکشن، ماجراجویی", "جوانی در دنیای مجازی برای یافتن گنجی پنهان وارد رقابتی بزرگ می‌شود.", "7.4"], ["106", "Star Wars: The Last Jedi", "جنگ ستارگان: آخرین جدای", "2017", "اکشن، ماجراجویی، علمی‌تخیلی", "ری و متحدانش در برابر نیروهای اول و کایلو رن قرار می‌گیرند.", "6.9"], ["107", "The Finest Hours", "بهترین ساعات", "2016", "درام، تاریخی، ماجراجویی", "داستان عملیات نجات خدمه یک کشتی شکسته در طوفانی سهمگین.", "6.7"], ["108", "Tomb Raider", "مهاجم مقبره", "2018", "اکشن، ماجراجویی، فانتزی", "لارا کرافت برای کشف راز پدرش وارد جزیره‌ای خطرناک می‌شود.", "6.3"], ["109", "Valerian and the City of a Thousand Planets", "والرین و شهر هزار سیاره", "2017", "علمی‌تخیلی، اکشن، ماجراجویی", "دو مأمور فضایی برای نجات یک شهر عظیم بین‌کهکشانی تلاش می‌کنند.", "6.4"], ["110", "The Adventurers", "ماجراجویان", "2017", "اکشن، ماجراجویی، جنایی", "گروهی سارق حرفه‌ای برای سرقتی بزرگ متحد می‌شوند.", "5.6"], ["111", "First Man", "نخستین انسان", "2018", "درام، تاریخی، زندگینامه‌ای", "داستان زندگی نیل آرمسترانگ و مأموریت تاریخی سفر به ماه.", "7.3"], ["112", "The Last Warrior", "آخرین جنگجو", "2017", "اکشن، فانتزی، ماجراجویی", "جوانی از دنیای مدرن وارد سرزمینی افسانه‌ای می‌شود و باید قهرمان شود.", "6.4"], ["113", "The Liberator", "رهایی‌بخش", "2013", "درام، تاریخی، جنگی", "روایت زندگی سیمون بولیوار و مبارزات او برای آزادی آمریکای لاتین.", "6.9"], ["114", "Migration", "مهاجرت", "2023", "انیمیشن، ماجراجویی، کمدی", "خانواده‌ای از اردک‌ها تصمیم می‌گیرند برای تجربه زندگی جدید سفری هیجان‌انگیز را آغاز کنند.", "6.6"], ["115", "Extinct", "منقرض‌شده", "2021", "انیمیشن، ماجراجویی، کمدی", "دو موجود بامزه از گذشته به آینده سفر می‌کنند تا نسل خود را نجات دهند.", "5.4"], ["116", "The Croods: A New Age", "غارنشینان: عصر جدید", "2020", "انیمیشن، ماجراجویی، کمدی", "خانواده کرودها با خانواده‌ای جدید روبه‌رو می‌شوند و باید تفاوت‌هایشان را بپذیرند.", "6.9"], ["117", "The Aristocats", "گربه‌های اشرافی", "1970", "انیمیشن، خانوادگی، ماجراجویی", "گربه‌های یک خانواده ثروتمند پس از اتفاقی خطرناک برای بازگشت به خانه تلاش می‌کنند.", "7.1"], ["118", "Turning Red", "قرمز شدن", "2022", "انیمیشن، کمدی، خانوادگی", "دختری نوجوان هرگاه هیجان‌زده می‌شود به یک پاندای قرمز غول‌پیکر تبدیل می‌شود.", "6.9"], ["119", "Tom and Jerry: Forbidden Compass", "تام و جری: قطب‌نمای ممنوعه", "2025", "ماجراجویی حیوانات، انیمه، پویانمایی رایانه‌ای", "در جریان تعقیب و گریزی در یک موزه، تام و جری یک شیء جادویی پیدا می‌کنند و به زمان دیگری منتقل می‌شوند. آن‌ها در دوره‌ای دورافتاده باید با همکاری یکدیگر راهی برای بازگشت به خانه پیدا کنند.", "3.4", "1h 44m", "Coming Soon", "September 9, 2026"], ["120", "The Sheep Detectives", "کارآگاهان گوسفند", "2026", "ماجراجویی حیوانات، کارآگاه دست‌وپاچلفتی، معمای قتل", "عنوان در فایل موجود است اما اطلاعات کافی برای تکمیل وجود ندارد.", "7.4", "1h 49m", "", ""], ["121", "Fireheart", "قلب آتشین", "2022", "انیمیشن، ماجراجویی، خانوادگی", "دختری جوان آرزو دارد اولین زن آتش‌نشان شود و برای رسیدن به هدفش تلاش می‌کند.", "6.2"], ["122", "Zootopia", "زوتوپیا", "2016", "انیمیشن، کمدی، ماجراجویی", "یک خرگوش پلیس و یک روباه حقه‌باز برای حل پرونده‌ای بزرگ همکاری می‌کنند.", "8.0"], ["123", "Inside Out", "درون و بیرون", "2015", "انیمیشن، کمدی، خانوادگی", "احساسات درون ذهن یک دختر نوجوان تلاش می‌کنند او را در مسیر زندگی هدایت کنند.", "8.1"], ["124", "Encanto", "انکانتو", "2021", "انیمیشن، فانتزی، خانوادگی", "دختری بدون قدرت جادویی در خانواده‌ای خاص تلاش می‌کند جایگاه خود را پیدا کند.", "7.2"], ["125", "Abominable", "نفرت‌انگیز", "2019", "انیمیشن، ماجراجویی، خانوادگی", "دختری نوجوان به یک یتی کمک می‌کند تا به خانه‌اش بازگردد.", "7.0"], ["126", "The Angry Birds Movie 2", "پرندگان خشمگین ۲", "2019", "انیمیشن، کمدی، ماجراجویی", "پرندگان و خوک‌ها برای مقابله با تهدیدی جدید مجبور به همکاری می‌شوند.", "6.4"], ["127", "Cars 3", "ماشین‌ها ۳", "2017", "انیمیشن، ورزشی، خانوادگی", "مک‌کوئین باید با نسل جدید خودروهای مسابقه‌ای رقابت کند.", "6.7"], ["128", "Finding Dory", "در جستجوی دوری", "2016", "انیمیشن، ماجراجویی، خانوادگی", "دوری برای پیدا کردن خانواده‌اش سفری تازه را آغاز می‌کند.", "7.2"], ["129", "How to Train Your Dragon 3", "چگونه اژدهای خود را تربیت کنیم ۳", "2019", "انیمیشن، فانتزی، ماجراجویی", "هیکاپ و بی‌دندان با تهدیدی جدید روبه‌رو می‌شوند و آینده دهکده را حفظ می‌کنند.", "7.4"], ["130", "Incredibles 2", "شگفت‌انگیزان ۲", "2018", "انیمیشن، اکشن، ماجراجویی", "خانواده ابرقهرمان‌ها دوباره برای نجات دنیا وارد عمل می‌شوند.", "7.5"], ["131", "Kubo and the Two Strings", "کوبو و دو تار", "2016", "انیمیشن، فانتزی، ماجراجویی", "پسری با قدرت موسیقی جادویی به دنبال راز خانواده‌اش می‌رود.", "7.7"], ["132", "Madagascar", "ماداگاسکار", "2005", "انیمیشن، کمدی، ماجراجویی", "چهار حیوان باغ‌وحش پس از فرار وارد دنیای وحشی ماداگاسکار می‌شوند.", "6.9"], ["133", "Ralph Breaks the Internet", "رالف خرابکار اینترنت را خراب می‌کند", "2018", "انیمیشن، کمدی، ماجراجویی", "رالف و وانلوپی وارد دنیای اینترنت می‌شوند و ماجراهای تازه‌ای تجربه می‌کنند.", "7.0"], ["134", "Rock Dog", "سگ آوازخوان", "2016", "انیمیشن، کمدی، موسیقی", "سگی جوان برای دنبال کردن رؤیای موسیقی خود راهی شهر می‌شود.", "5.9"], ["135", "Sing", "بخوان", "2016", "انیمیشن، کمدی، موسیقی", "گروهی از حیوانات برای شرکت در مسابقه آواز تلاش می‌کنند.", "7.1"], ["136", "The Smurfs: The Lost Village", "اسمورف‌ها: دهکده گمشده", "2017", "انیمیشن، فانتزی، خانوادگی", "اسمورف‌ها برای کشف دهکده‌ای ناشناخته وارد جنگلی خطرناک می‌شوند.", "6.0"], ["137", "The SpongeBob Movie: Sponge on the Run", "فیلم باب‌اسفنجی: اسفنج در حال فرار", "2020", "انیمیشن، کمدی، ماجراجویی", "باب‌اسفنجی برای پیدا کردن گری، حلزون خانگی‌اش، سفری پرماجرا را آغاز می‌کند.", "5.9"], ["138", "The Boss Baby", "بچه رئیس", "2017", "انیمیشن، کمدی، خانوادگی", "کودکی متوجه می‌شود برادر کوچکش یک مأمور مخفی با مأموریتی خاص است.", "6.3"], ["139", "The Boss Baby: Family Business", "بچه رئیس: کسب‌وکار خانوادگی", "2021", "انیمیشن، کمدی، خانوادگی", "دو برادر که بزرگ شده‌اند دوباره با یک مأموریت جدید روبه‌رو می‌شوند.", "5.9"], ["140", "The Book of Life", "کتاب زندگی", "2014", "انیمیشن، فانتزی، ماجراجویی", "جوانی برای رسیدن به عشق خود وارد سفری در دنیای مردگان می‌شود.", "7.2"], ["141", "The Emoji Movie", "فیلم ایموجی", "2017", "انیمیشن، کمدی، خانوادگی", "یک ایموجی متفاوت تلاش می‌کند جایگاه واقعی خود را پیدا کند.", "3.4"], ["142", "The Good Dinosaur", "دایناسور خوب", "2015", "انیمیشن، ماجراجویی، خانوادگی", "یک دایناسور جوان با پسری انسان دوست می‌شود و سفری طولانی را آغاز می‌کند.", "6.7"], ["143", "The Grinch", "گرینچ", "2018", "انیمیشن، کمدی، خانوادگی", "موجودی بدخلق تصمیم می‌گیرد جشن کریسمس را خراب کند اما نظرش تغییر می‌کند.", "6.4"], ["144", "The Lego Batman Movie", "فیلم لگو بتمن", "2017", "انیمیشن، اکشن، کمدی", "بتمن باید یاد بگیرد با دیگران همکاری کند تا شهر را نجات دهد.", "7.3"], ["145", "The Lego Movie", "فیلم لگو", "2014", "انیمیشن، کمدی، ماجراجویی", "یک کارگر معمولی لگو به اشتباه به عنوان قهرمان انتخاب می‌شود.", "7.7"], ["146", "The Lego Movie 2: The Second Part", "فیلم لگو ۲: بخش دوم", "2019", "انیمیشن، کمدی، ماجراجویی", "امت و دوستانش با تهدیدی جدید از دنیایی ناشناخته روبه‌رو می‌شوند.", "6.5"], ["147", "The Lorax", "لوراکس", "2012", "انیمیشن، خانوادگی، فانتزی", "پسری برای پیدا کردن درخت واقعی وارد ماجرایی درباره حفاظت از طبیعت می‌شود.", "6.4"], ["148", "The Peanuts Movie", "فیلم پیناتس", "2015", "انیمیشن، کمدی، خانوادگی", "چارلی براون و دوستانش ماجراهای تازه‌ای را تجربه می‌کنند.", "7.0"], ["149", "The Secret Life of Pets", "زندگی پنهان حیوانات خانگی", "2016", "ماجراجویی حیوانات، پویانمایی رایانه‌ای، ماجراجویی شهری", "زندگی آرام یک سگ تریر به نام مکس زمانی تغییر می‌کند که صاحبش سگ دیگری به نام دوک را به خانه می‌آورد؛ سگی ولگرد که مکس فوراً از او خوشش نمی‌آید.", "6.5", "1h 26m", "", ""], ["150", "The Secret Life of Pets 2", "زندگی پنهان حیوانات خانگی ۲", "2019", "انیمیشن، کمدی، خانوادگی", "حیوانات خانگی با مشکلات و ماجراهای جدیدی روبه‌رو می‌شوند.", "6.4"], ["151", "The Simpsons Movie", "فیلم سیمپسون‌ها", "2007", "انیمیشن، کمدی", "خانواده سیمپسون‌ها پس از یک فاجعه زیست‌محیطی گرفتار بحرانی بزرگ می‌شوند.", "7.3"], ["152", "The Star", "ستاره", "2017", "انیمیشن، ماجراجویی، خانوادگی", "حیوانی کوچک شاهد داستان تولد حضرت عیسی می‌شود.", "6.2"], ["153", "The Swan Princess", "شاهزاده قو", "1994", "انیمیشن، فانتزی، خانوادگی", "شاهزاده‌ای گرفتار طلسم می‌شود و داستانی عاشقانه شکل می‌گیرد.", "6.4"], ["154", "The Willoughbys", "ویلوبی‌ها", "2020", "انیمیشن، کمدی، ماجراجویی", "چهار کودک تلاش می‌کنند بدون والدین خود زندگی تازه‌ای بسازند.", "6.4"], ["155", "Trolls", "ترول‌ها", "2016", "انیمیشن، کمدی، موسیقی", "ترول‌های شاد برای نجات دوستانشان از دست دشمنان تلاش می‌کنند.", "6.4"], ["156", "Trolls World Tour", "تور جهانی ترول‌ها", "2020", "انیمیشن، کمدی، موسیقی", "ترول‌ها برای حفظ تنوع موسیقی وارد ماجرایی جهانی می‌شوند.", "6.1"], ["157", "Turbo", "توربو", "2013", "انیمیشن، کمدی، ورزشی", "حلزونی که رؤیای مسابقه دارد، قدرتی غیرمنتظره پیدا می‌کند.", "6.4"], ["158", "UglyDolls", "عروسک‌های زشت", "2019", "انیمیشن، کمدی، خانوادگی", "عروسک‌هایی که متفاوت هستند به دنبال پذیرش و پیدا کردن جایگاه خود می‌روند.", "5.1"], ["159", "Up", "بالا", "2009", "انیمیشن، ماجراجویی، خانوادگی", "پیرمردی با خانه پرنده‌اش سفری شگفت‌انگیز را آغاز می‌کند.", "8.3"], ["160", "Wreck-It Ralph", "رالف خرابکار", "2012", "انیمیشن، کمدی، ماجراجویی", "شخصیت منفی یک بازی ویدیویی می‌خواهد قهرمان باشد.", "7.7"], ["161", "Wonder Park", "پارک شگفت‌انگیز", "2019", "انیمیشن، ماجراجویی، کمدی", "دختری دنیای خیالی پارک تفریحی خود را زنده پیدا می‌کند.", "5.8"], ["162", "Zog", "زاگ", "2018", "انیمیشن، خانوادگی، کمدی", "اژدهایی جوان تلاش می‌کند مهارت‌های لازم برای موفق شدن را یاد بگیرد.", "7.3"], ["163", "The Addams Family", "خانواده آدامز", "2019", "انیمیشن، کمدی، فانتزی", "خانواده عجیب آدامز با ورود به جامعه جدید با مشکلاتی روبه‌رو می‌شوند.", "5.8"], ["164", "The Addams Family 2", "خانواده آدامز ۲", "2021", "انیمیشن، کمدی، فانتزی", "خانواده آدامز برای حفظ رابطه خانوادگی خود سفری جاده‌ای را آغاز می‌کنند.", "5.4"], ["165", "Batman: Hush", "بتمن: هاش", "2019", "انیمیشن، اکشن، جنایی", "بتمن با دشمنی مرموز به نام هاش روبه‌رو می‌شود که رازهای گذشته را می‌داند.", "6.9"], ["166", "Batman: Soul of the Dragon", "بتمن: روح اژدها", "2021", "انیمیشن، اکشن، ماجراجویی", "بتمن و چند مبارز حرفه‌ای با دشمنی خطرناک از گذشته روبه‌رو می‌شوند.", "6.1"], ["167", "Justice League Dark: Apokolips War", "لیگ عدالت تاریک: جنگ آپوکالیپس", "2020", "انیمیشن، اکشن، فانتزی", "قهرمانان دی‌سی برای مقابله با دارکساید در آخرین نبرد متحد می‌شوند.", "7.8"], ["168", "Mortal Kombat Legends: Scorpion's Revenge", "افسانه‌های مورتال کامبت: انتقام اسکورپیون", "2020", "انیمیشن، اکشن، فانتزی", "اسکورپیون برای انتقام و نجات زمین وارد مسابقات مرگبار می‌شود.", "7.4"], ["169", "Mortal Kombat Legends: Battle of the Realms", "افسانه‌های مورتال کامبت: نبرد قلمروها", "2021", "انیمیشن، اکشن، فانتزی", "جنگجویان برای دفاع از زمین در نبردی بزرگ شرکت می‌کنند.", "6.4"], ["170", "Resident Evil: Vendetta", "رزیدنت اویل: انتقام", "2017", "انیمیشن، اکشن، ترسناک", "کریس، لیان و ربکا با تروریستی که قصد انتشار ویروسی مرگبار دارد مبارزه می‌کنند.", "6.2"], ["171", "Resident Evil: Damnation", "رزیدنت اویل: نفرین‌شده", "2012", "انیمیشن، اکشن، ترسناک", "لیان کندی برای بررسی سلاح‌های زیستی به منطقه جنگی فرستاده می‌شود.", "6.4"], ["172", "Resident Evil: Degeneration", "رزیدنت اویل: تباهی", "2008", "انیمیشن، اکشن، ترسناک", "لیان و کلر برای مقابله با شیوع ویروس در فرودگاهی گرفتار می‌شوند.", "6.4"], ["173", "The Witcher: Nightmare of the Wolf", "ویچر: کابوس گرگ", "2021", "انیمیشن، فانتزی، اکشن", "داستان دوران جوانی وزمیر، استاد گرالت، و مسیر تبدیل شدن او به ویچر.", "7.2"], ["174", "A Whisker Away", "دختری که گربه شد", "2020", "انیمیشن، فانتزی، عاشقانه", "دختری با استفاده از یک ماسک جادویی به گربه تبدیل می‌شود تا به عشقش نزدیک شود.", "6.7"], ["175", "The Breadwinner", "نان‌آور", "2017", "انیمیشن، درام، خانوادگی", "دختری در افغانستان برای کمک به خانواده‌اش مجبور می‌شود هویت پسرانه پیدا کند.", "7.7"], ["176", "Coco", "کوکو", "2017", "انیمیشن، فانتزی، موسیقی", "پسری عاشق موسیقی وارد دنیای مردگان می‌شود تا راز خانواده‌اش را کشف کند.", "8.4"], ["177", "Corpse Bride", "عروس مرده", "2005", "انیمیشن، فانتزی، عاشقانه", "مرد جوانی به‌طور اتفاقی با عروسی مرده ازدواج می‌کند.", "7.3"], ["178", "Frankenweenie", "فرانکن‌وینی", "2012", "انیمیشن، ترسناک، کمدی", "پسری با استفاده از علم سگ مرده خود را زنده می‌کند.", "6.9"], ["179", "ParaNorman", "پاراپارانورمن", "2012", "انیمیشن، فانتزی، کمدی", "پسری که توانایی دیدن ارواح را دارد باید شهرش را نجات دهد.", "7.0"], ["180", "The Nightmare Before Christmas", "کابوس قبل از کریسمس", "1993", "انیمیشن، فانتزی، موزیکال", "پادشاه هالووین تصمیم می‌گیرد کریسمس را تجربه کند.", "7.9"], ["181", "Wallace & Gromit: The Curse of the Were-Rabbit", "والاس و گرومیت: نفرین خرگوش", "2005", "انیمیشن، کمدی، ماجراجویی", "والاس و سگش برای حل مشکل خرگوش‌های غول‌پیکر تلاش می‌کنند.", "7.5"], ["182", "Ratatouille", "راتاتویی", "2007", "انیمیشن، کمدی، خانوادگی", "موشی با استعداد آشپزی رؤیای تبدیل شدن به یک سرآشپز بزرگ را دارد.", "8.1"], ["183", "Monsters, Inc.", "کارخانه هیولاها", "2001", "انیمیشن، کمدی، خانوادگی", "دو هیولا در کارخانه ترساندن کودکان با دختری کوچک دوست می‌شوند.", "8.1"], ["184", "Monsters University", "دانشگاه هیولاها", "2013", "انیمیشن، کمدی، خانوادگی", "مایک و سالی دوران دانشگاه و آغاز دوستی خود را تجربه می‌کنند.", "7.2"], ["185", "Toy Story", "داستان اسباب‌بازی", "1995", "انیمیشن، کمدی، ماجراجویی", "اسباب‌بازی‌ها زمانی که انسان‌ها حضور ندارند زندگی خود را دارند.", "8.3"], ["186", "Toy Story 4", "داستان اسباب‌بازی ۴", "2019", "انیمیشن، کمدی، ماجراجویی", "وودی و دوستانش با اسباب‌بازی جدیدی به نام فورکی همراه می‌شوند.", "7.7"], ["187", "Toy Story 2", "داستان اسباب‌بازی ۲", "1999", "انیمیشن، کمدی، ماجراجویی", "وودی توسط یک کلکسیونر دزدیده می‌شود و دوستانش برای نجات او تلاش می‌کنند.", "7.9"], ["188", "Toy Story 3", "داستان اسباب‌بازی ۳", "2010", "انیمیشن، کمدی، ماجراجویی", "اسباب‌بازی‌ها پس از رفتن اندی به دانشگاه وارد ماجرایی تازه می‌شوند.", "8.3"], ["189", "A Bug's Life", "زندگی یک حشره", "1998", "انیمیشن، کمدی، ماجراجویی", "مورچه‌ای خلاق تلاش می‌کند کلنی خود را از دست ملخ‌ها نجات دهد.", "7.2"], ["190", "Cars", "ماشین‌ها", "2006", "انیمیشن، کمدی، ورزشی", "ماشین مسابقه‌ای جوانی در شهری کوچک گرفتار می‌شود و درس‌های مهمی یاد می‌گیرد.", "7.3"], ["191", "Cars 2", "ماشین‌ها ۲", "2011", "انیمیشن، ماجراجویی، کمدی", "مک‌کوئین و ماتر وارد یک مسابقه جهانی می‌شوند که به ماجرایی جاسوسی تبدیل می‌شود.", "6.2"], ["192", "Chicken Run", "فرار مرغی", "2000", "انیمیشن، کمدی، ماجراجویی", "گروهی مرغ تلاش می‌کنند از مزرعه‌ای خطرناک فرار کنند.", "7.1"], ["193", "Cloudy with a Chance of Meatballs", "ابری با احتمال بارش کوفته قلقلی", "2009", "انیمیشن، کمدی، علمی‌تخیلی", "یک مخترع دستگاهی می‌سازد که باعث بارش غذا از آسمان می‌شود.", "6.9"], ["194", "Cloudy with a Chance of Meatballs 2", "ابری با احتمال بارش کوفته قلقلی ۲", "2013", "انیمیشن، کمدی، ماجراجویی", "فلینت و دوستانش با موجودات غذایی عجیب روبه‌رو می‌شوند.", "6.3"], ["195", "Despicable Me", "من نفرت‌انگیز", "2010", "انیمیشن، کمدی، خانوادگی", "یک تبهکار حرفه‌ای پس از سرپرستی سه دختر کوچک تغییر می‌کند.", "7.6"], ["196", "Despicable Me 2", "من نفرت‌انگیز ۲", "2013", "انیمیشن، کمدی، ماجراجویی", "گرو برای مقابله با یک مجرم جدید به سازمان ضدشرارت می‌پیوندد.", "7.3"], ["197", "Despicable Me 3", "من نفرت‌انگیز ۳", "2017", "انیمیشن، کمدی، ماجراجویی", "گرو با برادر دوقلوی خود و دشمنی جدید روبه‌رو می‌شود.", "6.2"], ["198", "Despicable Me 4", "من نفرت‌انگیز ۴", "2024", "انیمیشن، کمدی، ماجراجویی", "گرو و خانواده‌اش با تهدیدی جدید مواجه می‌شوند.", "6.1"], ["199", "Epic", "حماسه", "2013", "انیمیشن، ماجراجویی، فانتزی", "دختری نوجوان به دنیایی کوچک در دل جنگل منتقل می‌شود و در جنگی بزرگ شرکت می‌کند.", "6.6"], ["200", "Frozen", "یخ‌زده", "2013", "انیمیشن، فانتزی، موزیکال", "دختری برای نجات خواهرش و پادشاهی یخ‌زده سفر می‌کند.", "7.4"], ["201", "Frozen II", "یخ‌زده ۲", "2019", "انیمیشن، فانتزی، ماجراجویی", "السا و دوستانش برای کشف رازهای گذشته به سفری جدید می‌روند.", "6.8"], ["202", "Hotel Transylvania Collection", "کالکشن هتل ترانسیلوانیا", "2012-2022", "انیمیشن، کمدی، ماجراجویی", "مجموعه کامل فیلم‌های هتل ترانسیلوانیا در یک عنوان؛ شامل چهار قسمت این مجموعه درباره دراکولا، خانواده و مهمانان هتل عجیب و پرماجرا.", "—", "", "", ""], ["303", "Shrek", "شرک", "2001", "پویانمایی بزرگسالان، ماجراجویی حماسی، کمدی دو رفیق", "یک ارباب شرور موجودات افسانه‌ای را از خانه‌هایشان بیرون می‌کند و آن‌ها را به مرداب شرک می‌فرستد. شرک برای پس گرفتن خانه‌اش مجبور می‌شود به سفری برود و شاهزاده فیونا را نجات دهد.", "7.9", "1h 30m", "", ""], ["304", "Shrek 2", "شرک ۲", "2004", "ماجراجویی حماسی، کمدی دو رفیق، پویانمایی رایانه‌ای", "شرک و فیونا برای جشن ازدواجشان به سرزمین دورِ دور می‌روند تا با والدین فیونا دیدار کنند، اما در آنجا متوجه می‌شوند که خانواده سلطنتی از ازدواج دخترشان با شرک چندان استقبال نمی‌کنند.", "7.4", "1h 33m", "", ""], ["305", "Oppenheimer", "اوپنهایمر", "2023", "درام روانشناختی، درام تاریخی، زندگی‌نامه", "داستان زندگی جی. رابرت اوپنهایمر، فیزیکدانی که نقش مهمی در توسعه بمب‌های اتمی داشت؛ بمب‌هایی که به پایان جنگ جهانی دوم کمک کردند.", "8.2", "3h", "", ""], ["306", "Bade Miyan Chote Miyan", "استاد بزرگ، استاد کوچک", "2024", "هندی، اکشن، علمی‌تخیلی", "دو سرباز نخبه با گذشته‌ای پرمشکل برای انجام مأموریتی جسورانه فراخوانده می‌شوند؛ مأموریتی که در آن باید با یک شرور نقاب‌دار مرگبار که دفاع هند را تهدید می‌کند، مقابله کنند.", "3.7", "2h 43m", "", ""], ["307", "Do Deewane Seher Mein", "دو دیوانه در شهر", "2026", "هندی، درام، عاشقانه", "دو جوان درون‌گرا و دست‌وپاچلفتی در بمبئی، در حالی که با ناامنی‌های شخصی و فشارهای اجتماعی دست‌وپنجه نرم می‌کنند، عشق را پیدا می‌کنند و یاد می‌گیرند خود واقعی‌شان را بپذیرند.", "6.1", "2h 18m", "", ""], ["308", "Hi Nanna", "سلام هانا", "2023", "هندی، درام، عاشقانه", "پدری مجرد برای فرزندش داستان مادر گمشده را تعریف می‌کند و از همان لحظه، زندگی آن‌ها دیگر مثل قبل نمی‌ماند.", "8.3", "2h 35m", "", ""], ["309", "Saiyaara", "سایارا", "2025", "هندی، درام، عاشقانه", "پس از آن‌که وانی در آستانه ازدواج رها می‌شود، با کریش، موسیقیدانی خشمگین و درگیر مشکلات زندگی، آشنا می‌شود. شعرهای وانی به ترانه‌های او جان می‌بخشند، اما با اوج گرفتن شهرت، خاطرات رو به زوال وانی آینده رابطه‌شان را تهدید می‌کند.", "6.3", "2h 30m", "", ""], ["310", "The Goat Life", "زندگی بزی", "2024", "هندی، ماجراجویی، درام", "مردی هندی برای پیدا کردن کار راهی عربستان سعودی می‌شود، اما در آنجا مجبور می‌شود بدون دستمزد در بیابانی دورافتاده به چوپانی بزها بپردازد و برای آزادی خود تلاش کند.", "7.1", "2h 53m", "", ""], ["311", "Uri: The Surgical Strike", "اوری: حمله جراحی", "2019", "هندی، اکشن، درام", "نیروهای ویژه ارتش هند عملیاتی مخفیانه را برای انتقام کشته‌شدن سربازان خود در حمله‌ای تروریستی اجرا می‌کنند.", "8.2", "2h 18m", "", ""], ["312", "The Heroic Legend of Arslan", "افسانه قهرمانانه ارسلان", "2015", "سریال، انیمه، اکشن، ماجراجویی، فانتزی", "ارسلان، شاهزاده جوان پارس، پس از سقوط پادشاهی‌اش برای بازپس‌گیری سرزمین و جایگاه خود همراه با گروهی از یارانش وارد نبرد می‌شود.", "7.7", "24m", "", ""], ["313", "Dark", "دارک", "2017", "سریال، علمی‌تخیلی، معمایی، درام، جنایی", "ناپدید شدن یک کودک در شهری کوچک آلمان، چهار خانواده را درگیر رازی چندنسلی درباره سفر در زمان و ارتباط میان گذشته، حال و آینده می‌کند.", "8.7", "1h", "", ""], ["314", "Game of Thrones", "بازی تاج‌وتخت", "2011", "سریال، درام، فانتزی، ماجراجویی، اکشن", "چند خاندان قدرتمند برای تصاحب تخت آهنین و کنترل هفت پادشاهی با یکدیگر رقابت می‌کنند، در حالی که تهدیدی باستانی در شمال بیدار می‌شود.", "9.2", "57m", "", ""], ["315", "Money Heist", "سرقت پول", "2017", "سریال، جنایی، درام، هیجانی، اکشن", "مردی با لقب «پروفسور» گروهی از سارقان را برای اجرای سرقت‌های بزرگ و پیچیده از مراکز مالی اسپانیا گرد هم می‌آورد.", "8.2", "1h", "", ""], ["316", "Peaky Blinders", "پیکی بلایندرز", "2013", "سریال، درام، جنایی، تاریخی", "خاندان شلبی و باند پیکی بلایندرز در بیرمنگام پس از جنگ جهانی اول برای گسترش قدرت و نفوذ خود با رقبای جنایتکار و سیاسی درگیر می‌شوند.", "8.7", "1h", "", ""], ["317", "Aban", "آبان", "2025", "سریال، درام، عاشقانه", "یک توسعه‌دهنده نابغه هوش مصنوعی به نام آبان الگوریتمی برای سرمایه‌گذاری در بازارهای مالی می‌سازد، اما برای پرداخت بدهی سنگین خود به سرمایه‌گذار سابقش با بحران بزرگی روبه‌رو می‌شود.", "3.5", "1h", "", ""], ["318", "You Knock on My Door", "تو درم را بزن", "2020", "سریال، عاشقانه، کمدی، درام", "ادا و سرکان پس از یک توافق غیرمنتظره برای وانمود کردن به نامزدی، به‌تدریج درگیر رابطه‌ای واقعی و پیچیده می‌شوند.", "7.3", "2h 15m", "", ""], ["319", "Dance on the Glass", "رقص روی شیشه", "2019", "سریال، درام، عاشقانه", "داستان زندگی چند زوج و خانواده که روابط عاطفی، خیانت، دوستی و تصمیم‌های دشوار، مسیر زندگی‌شان را تغییر می‌دهد.", "5.1", "1h", "", ""], ["320", "Shahrzad", "شهرزاد", "2015", "سریال، درام، عاشقانه، تاریخی", "در تهران دهه ۱۳۳۰، عشق شهرزاد و قباد در میان رقابت‌های خانوادگی، قدرت سیاسی و پیامدهای کودتای ۲۸ مرداد گرفتار می‌شود.", "8.2", "1h", "", ""], ["321", "Aoashi", "آواشی", "2022", "سریال، انیمه، ورزشی، درام", "آشیتو آئویی، فوتبالیست جوانی از استان Ehime، پس از شناسایی استعدادش به آکادمی فوتبال توکیو می‌رود تا رؤیای حرفه‌ای شدن را دنبال کند.", "7.8", "24m", "", ""], ["322", "Blades of the Guardians", "تیغه‌های نگهبانان", "2023", "سریال، انیمه، اکشن، ماجراجویی، درام، تاریخی", "دائوما در سرزمین‌های غربی چین مأموریت نگهبانی را می‌پذیرد؛ سفری که در ظاهر ساده است اما او را وارد زنجیره‌ای از خطرها و توطئه‌ها می‌کند.", "7.7", "22m", "", ""], ["323", "Chad Powers", "چاد پاورز", "2025", "سریال، کمدی، ورزشی", "یک کوارتربک سابق فوتبال آمریکایی پس از رسوایی، با هویتی تازه و نام چاد پاورز تلاش می‌کند دوباره به فوتبال دانشگاهی برگردد.", "7.0", "30m", "", ""], ["324", "Cobra Kai", "کبرا کای", "2018", "سریال، اکشن، کمدی، درام، هنرهای رزمی", "دهه‌ها پس از رقابت‌های کاراته فیلم «بچه کاراته‌کار»، جانی لارنس دوجوی کبرا کای را دوباره راه می‌اندازد و رقابت قدیمی او با دنیل لاروسو از سر گرفته می‌شود.", "8.4", "30m", "", ""], ["325", "Halo", "هیلو", "2022", "سریال، علمی‌تخیلی، اکشن، ماجراجویی", "در قرن بیست‌وششم، بشریت با تهدیدی بیگانه به نام Covenant می‌جنگد و سربازی تقویت‌شده به نام Master Chief در مرکز این نبرد قرار دارد.", "7.3", "1h", "", ""], ["326", "Spider-Noir", "اسپایدر-نوآر", "2026", "سریال، اکشن، جنایی، نوآر، ابرقهرمانی", "در نیویورک دهه ۱۹۳۰، یک کارآگاه سالخورده با گذشته‌ای مرموز با جنایت‌ها و میراث ابرقهرمانی خود روبه‌رو می‌شود.", "—", "1h", "", ""], ["327", "Stranger Things", "چیزهای عجیب", "2016", "سریال، علمی‌تخیلی، ترسناک، درام، معمایی", "پس از ناپدید شدن پسری جوان در شهر هاوکینز، دوستان و خانواده‌اش با آزمایش‌های مخفی، نیروهای ماورایی و دنیایی موازی روبه‌رو می‌شوند.", "8.6", "1h", "", ""], ["328", "Tasian", "تاسیان", "2025", "سریال، درام، تاریخی، عاشقانه", "داستانی عاشقانه و خانوادگی در تهران دهه ۱۳۵۰ که زندگی چند شخصیت را در آستانه تغییرات بزرگ اجتماعی و سیاسی به هم پیوند می‌دهد.", "7.1", "1h", "", ""], ["329", "The Legend of Kitchen Soldier", "افسانه سرباز آشپز", "2026", "سریال، درام، کمدی، فانتزی", "یک سرباز جوان به آشپزخانه نظامی منتقل می‌شود و متوجه می‌شود فرمان‌های اسرارآمیز شبیه یک بازی به او مأموریت‌هایی برای پیشرفت در آشپزی و خدمت نظامی می‌دهند.", "8.1", "1h 10m", "", ""], ["330", "The Legend of Vox Machina", "افسانه وُکس ماکینا", "2022", "سریال، انیمیشن، فانتزی، ماجراجویی، کمدی، اکشن", "گروهی از ماجراجویان نامتعارف برای پرداخت بدهی‌های خود مأموریت‌هایی خطرناک را می‌پذیرند و به تدریج به قهرمانانی برای نجات سرزمین تبدیل می‌شوند.", "8.4", "27m", "", ""], ["331", "The Lord of the Rings: The Rings of Power", "ارباب حلقه‌ها: حلقه‌های قدرت", "2022", "سریال، فانتزی، درام، ماجراجویی", "در دوران دوم سرزمین میانه، گروهی از شخصیت‌ها با ظهور دوباره شر و شکل‌گیری قدرت‌هایی روبه‌رو می‌شوند که سرنوشت سرزمین میانه را تغییر می‌دهد.", "6.9", "1h", "", ""], ["332", "Witch Hat Atelier", "آتلیه کلاه جادوگر", "2026", "سریال، انیمه، فانتزی، ماجراجویی، درام", "کوکو، دختری که آرزوی جادوگر شدن دارد، پس از دیدار با جادوگری به نام کیفرِی وارد دنیایی از جادو می‌شود و آموزش خود را آغاز می‌کند.", "8.5", "24m", "", ""], ["333", "Bamdad Khomar", "بامداد خمار", "2025", "سریال، درام، عاشقانه، تاریخی", "محبوبه، دختری از خانواده‌ای مرفه، برخلاف خواست خانواده عاشق رحیم می‌شود و ازدواج با او مسیر زندگی‌اش را به شکلی دردناک تغییر می‌دهد.", "—", "50m", "", ""], ["334", "Solo Leveling", "سولو لولینگ", "2024", "سریال، انیمه، اکشن، فانتزی، ماجراجویی", "سونگ جین‌وو، ضعیف‌ترین شکارچی کره، پس از یک حادثه مرموز توانایی منحصربه‌فردی پیدا می‌کند که به او اجازه می‌دهد برخلاف دیگران قدرت خود را افزایش دهد.", "8.5", "24m", "", ""], ["502", "A Man Called Otto", "مردی به نام اتو", "2022", "درام، کمدی", "اتو پس از مرگ همسرش زندگی را بی‌معنا می‌بیند، اما ورود خانواده‌ای جدید به همسایگی مسیر زندگی او را تغییر می‌دهد.", "7.5"], ["503", "Avatar: Fire and Ash", "آواتار: آتش و خاکستر", "2025", "اکشن، علمی‌تخیلی، ماجراجویی", "جیک و نیتیری و خانواده‌شان پس از یک فقدان با قبیله‌ای تهاجمی از ناوی‌ها روبه‌رو می‌شوند و درگیری در پاندورا شدت می‌گیرد.", "7.2"], ["504", "Avatar: The Way of Water", "آواتار: راه آب", "2022", "اکشن، علمی‌تخیلی، ماجراجویی", "جیک سالی و خانواده‌اش برای محافظت از خانه‌شان در پاندورا با تهدیدی قدیمی و نیروهای تازه روبه‌رو می‌شوند.", "7.5"], ["505", "Braveheart", "شجاع‌دل", "1995", "اکشن، درام، تاریخی، جنگی", "ویلیام والاس، جنگجوی اسکاتلندی، مردمش را برای شورش علیه سلطه ادوارد اول انگلستان رهبری می‌کند.", "8.3"], ["506", "Deliha", "دلیها", "2014", "ترکی، کمدی", "داستان زلیحای دیوانه از جایی آغاز می‌شود که یک روز همراه دوستانش نزد فالگیر می‌رود. همان روز، جمال و برادر خوش‌چهره‌اش جمیل در محله یک استودیوی عکاسی افتتاح می‌کنند و ماجراها پیچیده‌تر می‌شود.", "4.6"], ["507", "Disclosure Day", "روز افشا", "2026", "علمی‌تخیلی، درام، معمایی", "پس از اثبات وجود موجودات فرازمینی، کشف حقیقت درباره تنها نبودن انسان‌ها جهان را با پرسش‌های تازه‌ای روبه‌رو می‌کند.", "6.7"], ["508", "G.I. Jane", "جی. آی. جین", "1997", "اکشن، درام، جنگی", "یک افسر زن نیروی دریایی وارد دوره سخت نیروهای ویژه می‌شود و برای اثبات توانایی خود در واحدی مردسالار مبارزه می‌کند.", "6.1"], ["509", "Gemini Man", "مرد دوپیکر", "2019", "اکشن، علمی‌تخیلی، هیجانی", "یک آدمکش سالخورده با نسخه جوان‌تر و شبیه‌سازی‌شده خودش روبه‌رو می‌شود.", "5.7"], ["510", "Greenland 2: Migration", "گرینلند ۲: مهاجرت", "2026", "اکشن، علمی‌تخیلی، ماجراجویی، هیجانی", "خانواده گاریتی پناهگاه گرینلند را ترک می‌کند و برای یافتن خانه‌ای جدید از میان اروپای یخ‌زده و ویران عبور می‌کند.", "5.2"], ["511", "Hi-Five", "های‌فایو", "2025", "اکشن، کمدی، فانتزی، ماجراجویی", "پنج انسان معمولی پس از پیوند عضو از فردی دارای قدرت‌های فراطبیعی، صاحب توانایی‌هایی ویژه می‌شوند و با دشمنی قدرتمند روبه‌رو می‌شوند.", "6.5"], ["512", "Idols", "بت‌ها", "2026", "درام، ورزشی، عاشقانه", "یک موتورسوار جوان فرصت رقابت در موتو۲ را پیدا می‌کند، اما برای تمرین مجبور می‌شود با پدر بیگانه و گذشته‌دار خود همکاری کند.", "5.3"], ["513", "It: Chapter Two", "آن: بخش دوم", "2019", "ترسناک، فانتزی، درام", "بیست‌وهفت سال پس از شکست پنی‌وایز، اعضای بزرگسال باشگاه بازندگان برای مقابله دوباره با او به دری بازمی‌گردند.", "6.5"], ["514", "Kulyas: Lanetin Bedeli", "کولیاس: بهای نفرین", "2019", "ترسناک، ماورایی", "یک خانواده درگیر رویدادهایی فراطبیعی و نفرینی مرموز می‌شود.", ""], ["515", "Joker", "جوکر", "2019", "درام، جنایی، روان‌شناختی", "آرتور فلک، دلقکی شکست‌خورده و مردی طردشده، در گاتهام به سوی زندگی‌ای از آشوب و خشونت کشیده می‌شود.", "8.3"], ["516", "Lady and the Tramp", "بانو و ولگرد", "2019", "انیمیشن، ماجراجویی، کمدی، عاشقانه", "یک سگ خانگی اشرافی با سگ خیابانی‌ای آشنا می‌شود و رابطه‌ای غیرمنتظره میان آن‌ها شکل می‌گیرد.", "6.2"], ["517", "Maleficent", "مالفیسنت", "2014", "فانتزی، ماجراجویی، درام", "پری‌ای که از خیانت رنجیده است شاهزاده‌ای نوزاد را نفرین می‌کند، اما بعدها متوجه می‌شود همان کودک می‌تواند کلید صلح باشد.", "6.9"], ["518", "Maleficent: Mistress of Evil", "مالفیسنت: بانوی شرور", "2019", "فانتزی، ماجراجویی، درام", "مالفیسنت و آرورا با پیوندهای خانوادگی پیچیده و نیروهای تازه‌ای روبه‌رو می‌شوند که سرنوشت سرزمین پریان را تهدید می‌کنند.", "6.6"], ["519", "Mine 9", "معدن ۹", "2019", "درام، هیجانی", "پس از انفجار متان در اعماق زمین، نه معدنچی تنها یک ساعت اکسیژن برای زنده ماندن دارند.", "6.0"], ["520", "Midway", "میدوی", "2019", "اکشن، درام، جنگی، تاریخی", "نبرد میدوی در جنگ جهانی دوم از نگاه سربازان و فرماندهانی روایت می‌شود که برای تغییر مسیر جنگ تلاش می‌کنند.", "6.7"], ["521", "Moonfall", "سقوط ماه", "2022", "علمی‌تخیلی، اکشن، ماجراجویی", "نیرویی مرموز ماه را از مدار خارج می‌کند و گروهی کوچک برای جلوگیری از برخورد آن با زمین وارد مأموریتی فضایی می‌شوند.", "5.1"], ["522", "Morbius", "موربیوس", "2022", "اکشن، علمی‌تخیلی، ترسناک", "دانشمندی که برای درمان بیماری خونی خود آزمایشی خطرناک انجام می‌دهد، به موجودی خون‌آشام‌مانند تبدیل می‌شود.", "5.1"], ["523", "Mortal Kombat", "مورتال کامبت", "2021", "اکشن، فانتزی، علمی‌تخیلی، هنرهای رزمی", "یک مبارز MMA با قهرمانان منتخب زمین متحد می‌شود تا در نبردی بزرگ از جهان در برابر نیروهای جهان بیرون دفاع کند.", "6.1"], ["524", "Oddity", "ناهمانندی", "2024", "ترسناک، معمایی، هیجانی", "یک واسطه روحی برای کشف حقیقت قتل خواهرش به محل وقوع جنایت بازمی‌گردد و از یک مانکن چوبی مرموز کمک می‌گیرد.", "6.7"], ["525", "Onward", "به پیش", "2020", "انیمیشن، ماجراجویی، فانتزی", "دو برادر الف نوجوان برای یافتن جادویی که بتواند پدر از دست‌رفته‌شان را برای یک روز بازگرداند، سفری را آغاز می‌کنند.", "7.4"], ["526", "Rambo: Last Blood", "رمبو: آخرین خون", "2019", "اکشن، هیجانی، درام", "جان رمبو برای نجات دختری که به مکزیک برده شده است وارد نبردی شخصی با یک شبکه قاچاق انسان می‌شود.", "6.1"], ["527", "Robo", "روبو", "2019", "علمی‌تخیلی، ماجراجویی، خانوادگی", "پسری نوجوان با ربات نجاتی که توسط والدین مهندسش ساخته شده دوست می‌شود و همراه او وارد ماجراهایی تازه می‌شود.", "5.9"], ["528", "Romeo Akbar Walter", "رومئو، اکبر، والتر", "2019", "هندی، اکشن، جاسوسی، درام", "یک مأمور هندی با هویتی جعلی وارد مأموریتی مخفی و خطرناک در دوران تنش میان هند و پاکستان می‌شود.", "6.5"], ["529", "Rumble", "غرش", "2021", "انیمیشن، کمدی، فانتزی، ورزشی", "در جهانی که کشتی هیولاها یک ورزش جهانی است، دختر نوجوانی هیولایی دست‌کم‌گرفته‌شده را برای قهرمانی آموزش می‌دهد.", "6.0"], ["530", "Saw X", "اره ۱۰", "2023", "ترسناک، جنایی، هیجانی", "جان کرامر برای یک درمان تجربی به مکزیک می‌رود، اما متوجه می‌شود کل عملیات کلاهبرداری است و تصمیم می‌گیرد انتقام بگیرد.", "6.6"], ["531", "Shadow", "سایه", "2018", "اکشن، ماجراجویی، فانتزی، تاریخی", "فرمانده‌ای نظامی در دربار چین باستان بدل خود را مخفیانه آموزش می‌دهد تا شهری را پس بگیرد و نقشه‌ای پیچیده را اجرا کند.", "7.0"], ["532", "Shaolin Soccer", "فوتبال شائولین", "2001", "اکشن، کمدی، فانتزی، ورزشی", "یک پیرو شائولین برادران ناامیدش را جمع می‌کند تا با استفاده از مهارت‌های رزمی تیم فوتبال تشکیل دهند.", "7.3"], ["533", "Sonic the Hedgehog 3", "سونیک خارپشت ۳", "2024", "انیمیشن، اکشن، ماجراجویی، کمدی", "سونیک، ناکلز و تیلز برای مقابله با شدو، دشمنی قدرتمند با توانایی‌های ناشناخته، متحد می‌شوند.", "6.9"], ["534", "Soorarai Pottru", "سورارای پوترو", "2020", "هندی، درام", "مردی روستایی با وجود موانع فراوان تلاش می‌کند رؤیای سفر هوایی ارزان‌قیمت برای مردم عادی را عملی کند.", "8.6"], ["535", "Spider-Man: No Way Home", "مرد عنکبوتی: راهی به خانه نیست", "2021", "اکشن، علمی‌تخیلی، ماجراجویی", "پس از فاش شدن هویت مرد عنکبوتی، پیتر از دکتر استرنج کمک می‌خواهد و با باز شدن جهان‌های دیگر دشمنان خطرناک ظاهر می‌شوند.", "8.1"], ["536", "Super Me", "منِ ابرقهرمان", "2019", "علمی‌تخیلی، فانتزی، درام، معمایی", "فیلمنامه‌نویسی جوان متوجه می‌شود می‌تواند اشیای ارزشمند را از کابوس‌های کوتاهش به دنیای واقعی بیاورد.", "5.8"], ["537", "The Adam Project", "پروژه آدام", "2022", "علمی‌تخیلی، اکشن، ماجراجویی، کمدی", "یک خلبان زمان‌گرد پس از سقوط در سال ۲۰۲۲ با نسخه دوازده‌ساله خودش متحد می‌شود تا آینده را نجات دهد.", "6.7"], ["538", "The Bluff", "بلوف", "2026", "اکشن، ماجراجویی، درام، تاریخی", "زنی در جزیره‌ای کارائیبی با گذشته پنهان خود روبه‌رو می‌شود، زمانی که دزدان دریایی خشن به سرزمینش حمله می‌کنند.", "5.8"], ["539", "The Climbers", "صعودکنندگان", "2019", "اکشن، ماجراجویی، درام، تاریخی", "چهار عضو گروه صعود چین برای فتح اورست با دشوارترین شرایط طبیعی و محدودیت‌های جسمی روبه‌رو می‌شوند.", "5.5"], ["540", "The Death and Return of Superman", "مرگ و بازگشت سوپرمن", "2019", "انیمیشن، اکشن، ماجراجویی، فانتزی", "نسخه ترکیبی دو فیلم انیمیشنی «مرگ سوپرمن» و «سلطنت سوپرمن‌ها» داستان نبرد با دومزدی و بازگشت سوپرمن را روایت می‌کند.", ""], ["541", "The Price of Money: A Largo Winch Adventure", "بهای پول: ماجرای لارگو وینچ", "2024", "اکشن، ماجراجویی، درام، معمایی", "لارگو وینچ پس از ربوده‌شدن پسرش تلاش می‌کند عاملان ورشکستگی خود را پیدا کند و فرزندش را نجات دهد.", "5.1"], ["542", "The Wolf's Call", "ندای گرگ", "2019", "اکشن، هیجانی، جنگی", "در آینده‌ای نزدیک، یک زیردریایی فرانسوی درگیر بحران می‌شود و سرنوشت خدمه به مهارت متخصص سونار وابسته است.", "6.9"], ["543", "The Wrecking Crew", "گروه ویرانگر", "2026", "اکشن، کمدی، جنایی، معمایی", "دو برادر ناتنی با شخصیت‌های کاملاً متفاوت پس از قتل پدرشان در هاوایی دوباره متحد می‌شوند و با یاکوزا درگیر می‌شوند.", "6.4"], ["544", "Togo", "توگو", "2019", "ماجراجویی، درام، خانوادگی", "سگ سورتمه‌ای به نام توگو در زمستان سخت آلاسکا رهبری تیمی را بر عهده می‌گیرد تا داروی ضروری را به شهری دورافتاده برساند.", "7.9"], ["545", "W.", "دبلیو.", "2008", "درام، تاریخی، زندگی‌نامه‌ای، کمدی", "روایتی از زندگی و دوران ریاست‌جمهوری جورج دبلیو. بوش و مسیر رسیدن او به قدرت.", "6.3"], ["546", "War", "جنگ", "2019", "هندی، اکشن، هیجانی، جاسوسی", "یک مأمور اطلاعاتی برای دستگیری مربی سابق خود که به سرکشی روی آورده وارد تعقیبی بین‌المللی می‌شود.", "6.5"], ["547", "War Machine", "ماشین جنگی", "2026", "اکشن، علمی‌تخیلی، هیجانی", "آخرین نیروهای یک دوره آموزشی سخت نیروهای عملیات ویژه با نیرویی مرموز و مرگبار روبه‌رو می‌شوند.", "6.3"], ["548", "X-Men", "مردان ایکس", "2000", "اکشن، علمی‌تخیلی، ماجراجویی", "گروهی از جهش‌یافتگان دارای قدرت‌های ویژه برای مقابله با تهدیدی که انسان‌ها و جهش‌یافتگان را درگیر می‌کند متحد می‌شوند.", "7.3"], ["549", "The Lord of the Rings: The Fellowship of the Ring", "ارباب حلقه‌ها: یاران حلقه", "2001", "اکشن، ماجراجویی، فانتزی، درام", "فرودو بگینز حلقه یگانه را به ارث می‌برد و همراه یارانش مأمور می‌شود آن را پیش از رسیدن به دست سائورون نابود کند.", "8.9"], ["550", "The Lord of the Rings: The Two Towers", "ارباب حلقه‌ها: دو برج", "2002", "اکشن، ماجراجویی، فانتزی، درام", "یاران حلقه در مسیرهای جداگانه به مبارزه با نیروهای سائورون و سارومان ادامه می‌دهند و نبردی بزرگ در پیش است.", "8.8"], ["551", "The Lord of the Rings: The Return of the King", "ارباب حلقه‌ها: بازگشت پادشاه", "2003", "اکشن، ماجراجویی، فانتزی، درام", "گندالف و آراگورن برای مقابله با ارتش سائورون متحد می‌شوند، در حالی که فرودو و سم به سوی کوه هلاکت پیش می‌روند.", "9.0"], ["552", "Pirates of the Caribbean: The Curse of the Black Pearl", "دزدان دریایی کارائیب: نفرین مروارید سیاه", "2003", "اکشن، ماجراجویی، فانتزی", "یک آهنگر با یک کاپیتان دزد دریایی عجیب متحد می‌شود تا معشوقه‌اش را از دست خدمه مرده یک کشتی نجات دهد.", "8.1"], ["553", "Pirates of the Caribbean: Dead Man's Chest", "دزدان دریایی کارائیب: صندوق مرد مرده", "2006", "اکشن، ماجراجویی، فانتزی", "جک اسپارو برای رهایی از بدهی خود به دیوی جونز به دنبال قلب او می‌رود، در حالی که دیگران نیز همان هدف را دنبال می‌کنند.", "7.4"], ["554", "Pirates of the Caribbean: At World's End", "دزدان دریایی کارائیب: پایان جهان", "2007", "اکشن، ماجراجویی، فانتزی", "ویل ترنر، الیزابت سوان و باربوسا برای نجات جک اسپارو از قلمرو دیوی جونز آماده نبردی بزرگ می‌شوند.", "7.2"], ["555", "Pirates of the Caribbean: On Stranger Tides", "دزدان دریایی کارائیب: سوار بر امواج ناشناخته", "2011", "اکشن، ماجراجویی، فانتزی", "جک اسپارو و باربوسا برای یافتن چشمه جوانی وارد سفری می‌شوند که پای ریش‌سیاه و دخترش را نیز به ماجرا باز می‌کند.", "6.6"], ["556", "Pirates of the Caribbean: Dead Men Tell No Tales", "دزدان دریایی کارائیب: مردان مرده قصه نمی‌گویند", "2017", "اکشن، ماجراجویی، فانتزی", "جک اسپارو در حالی که کاپیتان سالازار و خدمه ارواحش در تعقیب او هستند، برای یافتن نیزه پوزیدون تلاش می‌کند.", "6.5"], ["557", "مطرب", "مطرب", "2019", "ایرانی، کمدی، موسیقی", "داستان یک خواننده قدیمی کوچه‌بازاری که در مسیر بازگشت به صحنه با ماجراها و دردسرهای تازه‌ای روبه‌رو می‌شود.", "6.1"], ["558", "آدم‌فروش", "آدم‌فروش", "2025", "ایرانی، درام، اجتماعی", "داستانی اجتماعی درباره روابط انسانی و پیامدهای انتخاب‌ها و تصمیم‌های شخصیت‌های داستان.", "—"], ["559", "Bache Mardom", "بچه مردم", "2025", "ایرانی، درام، اجتماعی", "داستان چند کودک و نوجوان که در سال‌های پس از جنگ با شرایط دشوار زندگی و جست‌وجوی هویت و خانواده روبه‌رو می‌شوند.", "—"], ["560", "Dynamite", "دینامیت", "2021", "ایرانی، کمدی", "دو طلبه جوان در خانه‌ای در شمال تهران ساکن می‌شوند و حضور همسایه‌ها و اتفاقات غیرمنتظره، زندگی آنها را به مجموعه‌ای از موقعیت‌های طنز تبدیل می‌کند.", "5.5"], ["561", "Gavazn Haye Otoban", "گوزن‌های اتوبان", "2025", "ایرانی، درام، اجتماعی", "داستانی اجتماعی که زندگی شخصیت‌هایی از طبقات مختلف جامعه را در پیوند با فضای شهری و روابط انسانی روایت می‌کند.", "—"], ["562", "Qolhak", "قلهک", "2022", "ایرانی، کمدی، درام، خانوادگی", "داستان چند خانواده در محله قلهک تهران که درگیر ماجراها و سوءتفاهم‌های مختلف می‌شوند؛ ماجرا از زمانی آغاز می‌شود که کودکی با نامه‌ای در یک آپارتمان گذاشته می‌شود و هیچ‌کس مسئولیت او را نمی‌پذیرد.", "2.7"], ["563", "Hamsafar", "همسفر", "1975", "ایرانی، عاشقانه، درام", "داستان زن و مردی از دو طبقه اجتماعی متفاوت که در سفری مشترک با یکدیگر آشنا می‌شوند و رابطه‌شان شکل می‌گیرد.", "6.2"], ["564", "Maria", "ماریا", "2024", "ایرانی، درام، اجتماعی", "داستان زنی که پس از انتشار ناخواسته ویدئویی از او، زندگی شخصی و اجتماعی‌اش دستخوش بحران می‌شود.", "—"], ["565", "Mosafaran-e Mahtab", "مسافران مهتاب", "1980", "ایرانی، درام، اجتماعی", "داستان خانواده‌ای روستایی که برای درمان بیماری یکی از اعضای خانواده راهی شهر می‌شوند و با واقعیت‌های تلخ زندگی شهری روبه‌رو می‌شوند.", "7.0"], ["566", "Pool-o-Party", "پول و پارتی", "2024", "ایرانی، کمدی، عاشقانه", "جوانی برای رسیدن به عشق و خواسته‌هایش وارد موقعیت‌هایی می‌شود که پول و روابط اجتماعی در آنها نقش پررنگی دارند.", "—"], ["567", "Saddam", "صددام", "2025", "ایرانی، کمدی، درام", "ماجرایی طنزآمیز که با سوءتفاهم و شباهت یک شخصیت ایرانی به صدام حسین شکل می‌گیرد.", "—"], ["568", "Tehran 57", "تهران ۵۷", "2025", "ایرانی، درام، تاریخی", "روایتی داستانی از تهران در آستانه انقلاب ۱۳۵۷ و تأثیر تحولات اجتماعی بر زندگی شخصیت‌ها.", "—"], ["569", "Aseman Gharb", "آسمان غرب", "2024", "ایرانی، جنگی، درام، تاریخی", "روایتی از مقاومت نیروهای ایرانی در روزهای آغازین جنگ ایران و عراق و نقش خلبانان و نیروهای نظامی در دفاع از کشور.", "6.2"], ["570", "Be Vaghte Khamari", "به وقت خماری", "2018", "ایرانی، کمدی", "جوانی که قرار است ازدواج کند، درگیر خانواده‌ای شلوغ و اتفاقاتی می‌شود که برنامه‌های مراسم را به هم می‌ریزد.", "4.9"], ["571", "Takhte Gaz", "تخته گاز", "2018", "ایرانی، کمدی", "مردی جوان برای رسیدن به خواسته‌هایش درگیر مجموعه‌ای از ماجراهای طنزآمیز و خانوادگی می‌شود.", "4.1"], ["573", "Shandervan", "شاندروان", "2022", "ایرانی، کمدی، خانوادگی", "داستان خانواده‌ای که پس از بازگشت یکی از اعضا، با مجموعه‌ای از سوءتفاهم‌ها و مسائل خانوادگی روبه‌رو می‌شوند.", "5.7"], ["574", "Shokolat Talkh", "شکلات تلخ", "2024", "ایرانی، درام، اجتماعی", "روایتی اجتماعی درباره زندگی و مشکلات شخصیت‌هایی که با چالش‌های خانوادگی و اجتماعی مواجه‌اند.", "—"], ["575", "Sahne-Zani", "صحنه‌زنی", "2021", "ایرانی، درام، اجتماعی", "یک کارگردان تئاتر که در حاشیه شهر فعالیت می‌کند با گروهی از افراد و مسائل اجتماعی پیچیده روبه‌رو می‌شود.", "6.4"], ["576", "Red Carpet", "رد کارپت", "2014", "ایرانی، کمدی", "بازیگری ایرانی برای دیدن یک کارگردان مشهور به جشنواره کن می‌رود و در حاشیه این سفر با موقعیت‌های طنزآمیز روبه‌رو می‌شود.", "5.5"], ["577", "Mast-e Eshgh", "مست عشق", "2024", "ایرانی، تاریخی، عاشقانه، درام", "روایت بخشی از زندگی مولانا و شمس تبریزی و رابطه عمیق و تأثیرگذار میان آن دو.", "7.1"], ["578", "Four Fingers", "چهار انگشت", "2019", "ایرانی، کمدی", "دو دوست برای انجام کاری به تایلند سفر می‌کنند و درگیر مجموعه‌ای از ماجراهای غیرمنتظره می‌شوند.", "5.6"], ["579", "The Good, the Bad, the Corny", "خوب، بد، جلف", "2017", "ایرانی، کمدی", "دو بازیگر و یک کارگردان در جریان ساخت یک فیلم با ماجراها و رقابت‌های طنزآمیز روبه‌رو می‌شوند.", "5.5"], ["580", "Newcastle", "نیوکاسل", "2019", "ایرانی، کمدی", "اعضای یک خانواده برای رسیدگی به خانه‌ای قدیمی دور هم جمع می‌شوند و اتفاقات و رازهای مختلفی آشکار می‌شود.", "4.5"], ["581", "Salam Mumbai", "سلام بمبئی", "2016", "ایرانی، عاشقانه، درام", "داستان یک دانشجوی ایرانی در هند که با دختری آشنا می‌شود و رابطه‌ای عاشقانه میان آنها شکل می‌گیرد.", "4.4"], ["582", "The Skier", "اسکی‌باز", "2018", "ایرانی، درام", "پسربچه‌ای در روستایی کوهستانی برای رساندن یک پیام تلاش می‌کند و در مسیر با دشواری‌های طبیعت روبه‌رو می‌شود.", "6.2"], ["583", "Italia Italia", "ایتالیا ایتالیا", "2017", "ایرانی، کمدی، عاشقانه", "داستان زندگی یک زوج جوان و فراز و نشیب‌های رابطه آنها که با روایت و فضایی متفاوت و طنزآمیز بیان می‌شود.", "5.7"], ["584", "Aineh Baghal", "آینه بغل", "2017", "ایرانی، کمدی، اجتماعی", "یک جوان ثروتمند برای جبران خسارتی که به آینه یک خودروی گران‌قیمت وارد کرده، وارد ماجراهایی زنجیره‌ای می‌شود.", "5.3"], ["585", "Gashte Ershad 2", "گشت ارشاد ۲", "2017", "ایرانی، کمدی", "سه دوست پس از آزادی از زندان برای رسیدن به پول و زندگی بهتر وارد ماجراهای تازه‌ای می‌شوند.", "5.1"], ["586", "Emperator-e Jahannam", "امپراطور جهنم", "2017", "ایرانی، سیاسی، درام، تاریخی", "داستانی سیاسی درباره پشت پرده شکل‌گیری و گسترش گروه‌های افراطی و تروریستی در منطقه.", "4.7"], ["587", "Loone Zanboor", "لونه زنبور", "2018", "ایرانی، کمدی", "دو دوست در جریان یک معامله و ماجرای مالی گرفتار دردسرهای زنجیره‌ای می‌شوند.", "5.1"], ["589", "Man-o Sharmin", "من و شارمین", "2017", "ایرانی، کمدی، عاشقانه", "جوانی که توانایی پیش‌بینی مرگ افراد را دارد، با دختری به نام شارمین آشنا می‌شود و زندگی‌اش وارد مسیر تازه‌ای می‌شود.", "4.0"], ["590", "Julie 2", "جولی ۲", "2019", "ایرانی، کمدی", "ادامه‌ای طنزآمیز بر ماجراهای شخصیت‌های قسمت نخست جولی.", "—"], ["591", "Khorshid", "خورشید", "2020", "ایرانی، درام، اجتماعی", "داستان چند کودک کار که برای نجات خود و رسیدن به یک گنج پنهان وارد ماجرایی خطرناک می‌شوند.", "7.2"], ["592", "Safari Baraye Sefr", "سفری برای صفر", "2025", "ایرانی، درام، اجتماعی", "سفری که شخصیت اصلی را با آدم‌ها و موقعیت‌های تازه روبه‌رو می‌کند و مسیر زندگی او را تغییر می‌دهد.", "—"], ["593", "Colonel Soraya", "سرهنگ ثریا", "2023", "ایرانی، درام، تاریخی، زندگی‌نامه‌ای", "داستان خانواده‌هایی که پس از سقوط صدام به پادگان اشرف می‌روند تا فرزندان خود را که سال‌ها ندیده‌اند پیدا کنند؛ ثریا نیز برای رهایی فرزندش تلاش می‌کند.", "5.2"], ["594", "Confiscation", "مصادره", "2018", "ایرانی، کمدی، درام", "داستان اسماعیل یارجانلو، کارمند ساواک، که در دهه ۱۳۵۰ برنده زمینی در قرعه‌کشی می‌شود و پس از انقلاب مجبور به ترک ایران می‌شود و درگیر ماجراهای مختلفی می‌شود.", "4.8"]];
+const categoryDefs = [["فیلم‌های ایرانی", ["ایرانی"]], ["هندی", ["هندی"]], ["ترسناک", ["ترسناک", "وحشت"]], ["انیمه و انیمیشن", ["انیمه", "پویانمایی", "انیمیشن"]], ["علمی‌تخیلی", ["علمی‌تخیلی", "علمی تخیلی"]], ["اکشن", ["اکشن"]], ["ماجراجویی", ["ماجراجویی"]], ["درام", ["درام"]], ["سریال‌ها", ["سریال", "مجموعه"]]];
+function rowMatchesCategory(r, terms){
+  const g=String(r[4]||"").toLowerCase();
+  return terms.some(t=>g.includes(t.toLowerCase()));
+}
+const posterMap = {"1":"6 Underground.jpg","2":"Abduction.jpg","3":"Ant-Man and the Wasp.jpg","4":"Avengers - Infinity War.jpg","5":"Creed III.jpg","6":"The First King Romulus and Remus.jpg","7":"Rudhramadevi.jpg","8":"Samson.jpg","9":"Sanada 10 Braves.jpg","10":"Seventh Son.jpg","11":"The Great Battle.jpg","12":"The Great Wall.jpg","13":"The Huntress - Rune of the Dead.jpg","14":"The Lost Viking.jpg","15":"Troy.jpg","17":"The Mitchells vs. the Machines.jpg","18":"Batman Begins.jpg","19":"bumbelbee.jpg","20":"close.jpg","21":"Deadpool.jpg","22":"Fast & Furious Presents - Hobbs & Shaw.jpg","23":"Godzilla vs. Kong (2021).jpg","24":"Jack the Giant Slayer.jpg","25":"Kingsglaive_Final_Fantasy_XV.jpg","26":"Mission Impossible Fallout.jpg","27":"Prometheus (2012).jpg","28":"Red Sparrow (2018).jpg","29":"Shang-Chi and the Legend of the Ten Rings.jpg","30":"Spider-Man (2002).jpg","31":"The Amazing Spider-Man 2 (2014).jpg","32":"The Incredible Hulk.jpg","33":"Thor Ragnarok.jpg","36":"Abigail.jpg","37":"Aquaman.jpg","38":"Avengers - Age of Ultron.jpg","39":"Captain America - Civil War.jpg","40":"Code 8.jpg","41":"Deadpool 2.jpg","42":"Extraction.jpg","43":"Green Lantern.jpg","44":"John Wick - Chapter 2.jpg","45":"Love and Monsters.jpg","46":"Mortal Kombat II.jpg","47":"Radius.jpg","48":"Red Notice.jpg","49":"Skyscraper.jpg","50":"Spider-Man - Far from Home.jpg","51":"The Dark Knight.jpg","52":"The Legend of Tarzan.jpg","53":"Transformers - Dark of the Moon.jpg","54":"Warm Bodies.jpg","55":"1917.jpg","56":"Alpha.jpg","57":"Arthur & Merlin - Knights of Camelot.jpg","58":"Avengers - Endgame.jpg","59":"Black Panther.jpg","60":"Captain Marvel.jpg","61":"Crawl.jpg","62":"Doctor Strange.jpg","63":"Fantastic Beasts and Where to Find Them.jpg","64":"Focus.jpg","65":"Hacksaw Ridge.jpg","66":"John Wick Chapter 3 – Parabellum.jpg","67":"Mechanic Resurrection.jpg","68":"Mowgli Legend of the Jungle.jpg","69":"Rampage.jpg","70":"xXx Return of Xander Cage.jpg","71":"Spectral.jpg","73":"The Dark Knight Rises.jpg","74":"The Mummy.jpg","75":"Venom.jpg","76":"Wonder Woman 1984.jpg","77":"Wolf Warriors 2.jpg","78":"Anna.jpg","79":"Ashfall.jpg","80":"Bad Boys for Life.jpg","81":"Bloodshot.jpg","82":"Chappie.jpg","83":"Dark Phoenix.jpg","84":"Dunkirk.jpg","85":"Fantastic Four.jpg","86":"Ford v Ferrari.jpg","87":"Hunter Killer.jpg","88":"Jumanji Welcome to the Jungle.jpg","89":"Men in Black International.jpg","90":"No Time to Die.jpg","92":"Spider-Man 3.jpg","93":"Terminator Dark Fate.jpg","94":"The Equalizer.jpg","96":"Wonder Woman.jpg","98":"Arrival.jpg","99":"Inception.jpg","100":"Interstellar.jpg","101":"Jumanji The Next Level.jpg","102":"Murder on the Orient Express.jpg","103":"Pacific Rim.jpg","104":"Passengers.jpg","105":"Ready Player One.jpg","106":"Star Wars The Last Jedi.jpg","107":"The Finest Hours.jpg","108":"Tomb Raider.jpg","109":"Valerian and the City of a Thousand Planets.jpg","110":"The Adventurers.jpg","111":"First Man.jpg","112":"The Last Warrior.jpg","113":"The Liberator.jpg","120":"The Sheep Detectives.jpg","239":"The Jungle Book.jpg","301":"Time Freak.jpg","305":"Oppenheimer.jpg","500":"Creed.jpg","501":"Creed II.jpg","502":"A Man Called Otto.jpg","503":"Avatar - Fire and Ash.jpg","504":"Avatar - The Way of Water.jpg","505":"Braveheart.jpg","507":"Disclosure Day.jpg","508":"G.I. Jane.jpg","509":"Gemini Man.jpg","510":"Greenland 2 Migration.jpg","511":"Hi-Five.jpg","512":"Idols.jpg","515":"Joker.jpg","517":"Maleficent.jpg","518":"Maleficent Mistress of Evil.jpg","519":"Mine 9.jpg","520":"Midway.jpg","521":"Moonfall.jpg","523":"Mortal Kombat.jpg","526":"Rambo Last Blood.jpg","527":"Robo.jpg","531":"Shadow.jpg","532":"Shaolin Soccer.jpg","535":"Spider-Man No Way Home.jpg","536":"Super Me.jpg","537":"The Adam Project.jpg","538":"The Bluff.jpg","539":"The Climbers.jpg","541":"The Price of Money A Largo Winch Adventure.jpg","542":"The Wolf's Call.jpg","543":"The Wrecking Crew.jpg","544":"Togo.jpg","545":"W..jpg","547":"War Machine.jpg","548":"X-Men.jpg","549":"The Lord of the Rings The Fellowship of the Ring.jpg","550":"The Lord of the Rings The Two Towers.jpg","551":"The Lord of the Rings The Return of the King.jpg","552":"Pirates of the Caribbean The Curse of the Black Pearl.jpg","553":"Pirates of the Caribbean Dead Man's Chest.jpg","554":"Pirates of the Caribbean At World's End.jpg","555":"Pirates of the Caribbean On Stranger Tides.jpg","556":"Pirates of the Caribbean Dead Men Tell No Tales.jpg","557":"مطرب.jpg","558":"آدم‌فروش.jpg","559":"Bache Mardom.jpg","560":"Dynamite.jpg","561":"Gavazn Haye Otoban.jpg","562":"Qolhak.jpg","563":"Ham_safar.jpg","564":"Maria.jpg","565":"Mosafaran-e Mahtab.jpg","566":"Pool-o-Party.jpg","567":"Saddam.jpg","568":"Tehran 57.jpg","569":"Aseman Gharb.jpg","570":"Be Vaghte Khamari.jpg","571":"Takhte Gaz.jpg","573":"Shandervan.jpg","574":"Shokolat Talkh.jpg","575":"Sahne-Zani.jpg","576":"Red Carpet.jpg","577":"Mast-e Eshgh.jpg","578":"Four_Fingers.jpg","579":"The Good, the Bad, the Corny.jpg","580":"New Castle (2020).jpg","581":"Salam Mumbai.jpg","582":"The Skier.jpg","583":"Italia Italia.jpg","584":"Ayneh_Baghal_(Wing_Mirror).jpg","585":"Gasht_2.jpg","586":"Emperator-e Jahannam.jpg","587":"Loneh_Zanbor_Poster.jpg","589":"Me_and_Sharmein.jpg","590":"Julie 2.jpg","591":"Khorshid.jpg","592":"Safari Baraye Sefr.jpg","593":"Colonel Soraya.jpg","594":"Confiscation.jpg","72":"Tau.jpg","329":"The Legend of Kitchen Soldier.jpg","330":"The Legend of Vox Machina.jpg","331":"The Lord of the Rings - The Rings of Power.jpg","95":"Venom - Let There Be Carnage.jpg","34":"Victor Frankenstein.jpg","332":"Witch Hat Atelier.jpg","318":"You Knock on My Door.jpg","297":"Howl’s Moving Castle.jpg","208":"Ice Age - Collision Course.jpg","207":"Ice Age - Continental Drift.jpg","206":"Ice Age - Dawn of the Dinosaurs.jpg","205":"Ice Age.jpg","130":"Incredibles 2.jpg","271":"Inside Out 2.jpg","123":"Inside Out.jpg","513":"It - Chapter Two.jpg","167":"Justice League Dark - Apokolips War.jpg","514":"Kulyas - Lanetin Bedeli.jpg","315":"Money Heist.jpg","522":"Morbius.jpg","524":"Oddity.jpg","316":"Peaky Blinders.jpg","171":"Resident Evil - Damnation.jpg","172":"Resident Evil - Degeneration.jpg","91":"Revenge.jpg","530":"Saw X.jpg","328":"Tasian.jpg","313":"Dark.jpg","196":"Despicable Me 2.jpg","197":"Despicable Me 3.jpg","195":"Despicable Me.jpg","276":"Elemental.jpg","124":"Encanto.jpg","199":"Epic.jpg","115":"Extinct.jpg","128":"Finding Dory.jpg","121":"Fireheart.jpg","178":"Frankenweenie.jpg","201":"Frozen II.jpg","200":"Frozen.jpg","314":"Game of Thrones.jpg","285":"Guillermo del Toro’s Pinocchio.jpg","202":"Hotel Transylvania Collection.jpg","129":"How to Train Your Dragon 3.jpg","35":"47 Meters Down - Uncaged.jpg","189":"A Bug's Life.jpg","317":"Aban.jpg","125":"Abominable.jpg","321":"Aoashi.jpg","333":"Bamdad Khomar.jpg","165":"Batman - Hush.jpg","166":"Batman - Soul of the Dragon.jpg","16":"Big Hero 6.jpg","322":"Blades of the Guardians.jpg","191":"Cars 2.jpg","127":"Cars 3.jpg","190":"Cars.jpg","323":"Chad Powers.jpg","192":"Chicken Run.jpg","194":"Cloudy with a Chance of Meatballs 2.jpg","193":"Cloudy with a Chance of Meatballs.jpg","324":"Cobra Kai.jpg","176":"Coco.jpg","177":"Corpse Bride.jpg"};
+
+function getPosterFile(r){
+  const id = String(r[0]);
+  const title = normalizeSearchText(r[1]);
+  if(title.includes("avengers") && title.includes("infinity war")) return "Avengers - Infinity War.jpg";
+  if(title.includes("avengers") && title.includes("endgame")) return "Avengers - Endgame.jpg";
+  return posterMap[id] || "";
+}
+function posterHTML(r){
+  const c=hashColor(r[1]);
+  const file=getPosterFile(r);
+  if(file){
+    return `<div class="poster"><img src="image/${encodeURIComponent(file).replace(/%2F/g,'/') }" alt="${esc(r[1])}" loading="lazy"><span class="year">${esc(r[3])}</span><span class="score">★ ${esc(r[6])}</span></div>`;
+  }
+  return `<div class="poster no-poster" style="--c1:${c[0]};--c2:${c[1]}"><span class="year">${esc(r[3])}</span><span class="score">★ ${esc(r[6])}</span><div class="poster-title">${esc(r[2]||r[1])}</div></div>`;
+}
+function cardHTML(r){
+  return `<article class="card" onclick="openDetailsByRow('${esc(r[0])}')">
+    ${posterHTML(r)}
+    <div class="card-body">
+      <div class="en">${esc(r[1])}</div>
+      <div class="fa">${esc(r[2])}</div>
+      <div class="genre">${esc(r[4])}</div>
+    </div>
+  </article>`;
+}
+function mainCategory(r){
+  const g=String(r[4]||"").toLowerCase().replace(/[يى]/g,"ی").replace(/ك/g,"ک");
+  // Series take precedence so they remain in the dedicated series section.
+  if(["سریال","مجموعه"].some(t=>g.includes(t))) return "سریال‌ها";
+  // Priority is intentional: a film belongs to exactly one main category.
+  // Example: هندی+اکشن => هندی, علمی‌تخیلی+اکشن => علمی‌تخیلی.
+  for(const [title,terms] of categoryDefs){
+    if(terms.some(t=>g.includes(String(t).toLowerCase()))) return title;
+  }
+  return null;
+}
+function franchiseKey(title){
+  let t=normalizeSearchText(title);
+  // Keep known franchises together even when subtitles/parts differ.
+  const known=[
+    [/^the amazing spider man|^spider man/i,"spider man"],
+    [/^resident evil/i,"resident evil"],
+    [/^avengers/i,"avengers"],
+    [/^captain america/i,"captain america"],
+    [/^deadpool/i,"deadpool"],
+    [/^john wick/i,"john wick"],
+    [/^fast furious/i,"fast furious"],
+    [/^transformers/i,"transformers"],
+    [/^thor/i,"thor"],
+    [/^shrek/i,"shrek"],
+    [/^the conjuring/i,"the conjuring"],
+    [/^insidious/i,"insidious"],
+    [/^alien/i,"alien"],
+    [/^avatar/i,"avatar"],
+    [/^mission impossible/i,"mission impossible"],
+    [/^mortal kombat/i,"mortal kombat"],
+    [/^avengers/i,"avengers"],
+    [/^hotel transylvania/i,"hotel transylvania"]
+  ];
+  for(const [re,key] of known) if(re.test(t)) return key;
+  // Generic sequel/part handling: strip trailing numbers, Roman numerals and part/chapter labels.
+  t=t.replace(/\s*[:\-–—]\s*(chapter|part|قسمت)\s*\d+.*$/i,"")
+      .replace(/\s+(chapter|part|قسمت)\s*\d+.*$/i,"")
+      .replace(/\s+(i{1,4}|v|vi{0,3}|x{1,3})$/i,"")
+      .replace(/\s+[0-9۰-۹]+$/u,"")
+      .trim();
+  return t;
+}
+function sortSeriesTogether(a,b){
+  const ka=franchiseKey(a[1]), kb=franchiseKey(b[1]);
+  if(ka!==kb) return ka.localeCompare(kb,"en");
+  const ya=parseInt(a[3])||0, yb=parseInt(b[3])||0;
+  if(ya!==yb) return ya-yb;
+  return String(a[1]).localeCompare(String(b[1]),"en");
+}
+const categoryDisplayOrder = ["فیلم‌های ایرانی", "اکشن", "ماجراجویی", "علمی‌تخیلی", "درام", "انیمه و انیمیشن", "هندی", "ترسناک", "سریال‌ها"];
+function renderCategorySections(){
+  const wrap=document.getElementById("categorySections");
+  const assigned=new Map(data.map(r=>[String(r[0]),mainCategory(r)]));
+  const orderedDefs=categoryDisplayOrder
+    .map(title=>categoryDefs.find(([t])=>t===title))
+    .filter(Boolean);
+  wrap.innerHTML=orderedDefs.map(([title,terms])=>{
+    let rows=data.filter(r=>assigned.get(String(r[0]))===title);
+    if(!rows.length) return "";
+    rows.sort(sortSeriesTogether);
+    const series=title==="سریال‌ها";
+    return `<section class="cat-section ${series?'series-section':''}" id="cat-${title.replaceAll(' ','-')}">
+      <div class="cat-title"><span>${title}</span><small>${rows.length} عنوان</small></div>
+      <div class="grid">${rows.map(cardHTML).join("")}</div>
+    </section>`;
+  }).join("");
+  document.getElementById("count").textContent=`${data.length} عنوان`;
+}
+
+const allGenres = ["اکشن", "هیجانی", "معمایی", "ماجراجویی", "علمی‌تخیلی", "درام", "ورزشی", "تاریخی", "فانتزی", "جنگی", "ترسناک", "انیمیشن", "خانوادگی", "کمدی", "جنایی", "جاسوسی", "فانتزی تاریک", "هنرهای رزمی", "فانتزی ماورایی", "عاشقانه", "زندگینامه‌ای", "ماجراجویی حیوانات", "انیمه", "پویانمایی رایانه‌ای", "کارآگاه دست‌وپاچلفتی", "معمای قتل", "موسیقی", "ماجراجویی شهری", "موزیکال", "Dark Comedy", "کمدی جابه‌جایی بدن", "پویانمایی بزرگسالان", "ماجراجویی حماسی", "کمدی دو رفیق"]; const featured = 50;
+let activeGenre = "همه";
+let query = "";
+
+function esc(s){
+  return String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function hashColor(s){
+  let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0;
+  const palettes=[
+    ["#17222d","#090b0d"],["#3a1c22","#0b0d0e"],["#2a2a1a","#0b0d0e"],
+    ["#1b2b2d","#090b0d"],["#30201a","#0b0d0e"],["#251b35","#090b0d"],
+    ["#162b23","#090b0d"],["#2b1828","#090b0d"]
+  ];
+  return palettes[h%palettes.length];
+}
+function setHero(){
+  const r=data[featured];
+  document.getElementById("heroEn").textContent=r[1];
+  document.getElementById("heroFa").textContent=r[2];
+  document.getElementById("heroDesc").textContent=r[5];
+  document.getElementById("heroMeta").innerHTML=
+    `<span class="badge">${esc(r[3])}</span>
+     ${r[7]?`<span class="badge">${esc(r[7])}</span>`:""}
+     <span class="badge">${esc(r[4])}</span>
+     <span class="badge rating">★ ${esc(r[6])}</span>`;
+}
+function buildChips(){
+  const top=["همه","اکشن","انیمیشن","ماجراجویی","علمی‌تخیلی","کمدی","درام","فانتزی","هیجانی","ترسناک","جنایی","تاریخی"];
+  const list=[...new Set(top.concat(allGenres))];
+  document.getElementById("chips").innerHTML=list.map(g=>
+    `<button class="chip ${g===activeGenre?'active':''}" onclick="setGenre('${g.replaceAll("'","\\'")}')">${esc(g)}</button>`
+  ).join("");
+}
+function normalizeSearchText(s){
+  return String(s ?? "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[يى]/g,"ی")
+    .replace(/ك/g,"ک")
+    .replace(/ة/g,"ه")
+    .replace(/ۀ/g,"ه")
+    .replace(/[أإآٱ]/g,"ا")
+    .replace(/[ًٌٍَُِّْـ]/g,"")
+    .replace(/[\u200c\u200d]/g," ")
+    .replace(/[٠-٩]/g, d => String(d.charCodeAt(0)-0x0660))
+    .replace(/[۰-۹]/g, d => String(d.charCodeAt(0)-0x06f0))
+    .replace(/[\s\-_]+/g," ")
+    .trim();
+}
+
+function searchMatches(row, q){
+  if(!q) return true;
+  const queryText = normalizeSearchText(q);
+  const fields = [
+    row[1], // English title
+    row[2], // Persian title
+    row[4], // genres
+    row[5]  // description
+  ].map(normalizeSearchText);
+
+  // Search simultaneously in both the English and Persian title.
+  // Also supports multi-word queries regardless of extra spaces/hyphens.
+  return fields.some(field => field.includes(queryText));
+}
+
+function filtered(){
+  return data.filter(r=>{
+    const genreOk=activeGenre==="همه" || r[4].includes(activeGenre);
+    return genreOk && searchMatches(r, query);
+  });
+}
+function render(){
+  const categorySections=document.getElementById("categorySections");
+  const grid=document.getElementById("grid");
+  const q=normalizeSearchText(query);
+  // Empty search: show normal category catalog.
+  if(!q){
+    categorySections.style.display="";
+    grid.style.display="none";
+    document.getElementById("count").textContent=`${data.length} عنوان`;
+    return;
+  }
+  // Active search: hide categories and explicitly show the results grid.
+  categorySections.style.display="none";
+  grid.style.display="grid";
+  const list=filtered();
+  document.getElementById("count").textContent=`${list.length} عنوان`;
+  if(!list.length){grid.innerHTML='<div class="empty">عنوانی با این فیلتر پیدا نشد.</div>';return;}
+  grid.innerHTML=list.map(r=>{
+    return `<article class="card" onclick="openDetailsByRow('${esc(r[0])}')">
+      ${posterHTML(r)}
+      <div class="card-body">
+        <div class="en">${esc(r[1])}</div>
+        <div class="fa">${esc(r[2])}</div>
+        <div class="genre">${esc(r[4])}</div>
+      </div>
+    </article>`;
+  }).join("");
+}
+function setGenre(g){activeGenre=g;buildChips();render();}
+function openDetailsByRow(id){
+  const i=data.findIndex(r=>r[0]===String(id)); if(i>=0) openDetails(i);
+}
+function openDetails(i){
+  const r=data[i];
+  const posterFile=getPosterFile(r);
+  document.getElementById("mPoster").innerHTML = posterFile
+    ? `<img class="modal-poster" src="image/${encodeURIComponent(posterFile).replace(/%2F/g,'/') }" alt="${esc(r[1])}">`
+    : `<div class="modal-poster-placeholder">پوستر این عنوان هنوز در پوشه image موجود نیست</div>`;
+  document.getElementById("mEn").textContent=r[1];
+  document.getElementById("mFa").textContent=r[2];
+  document.getElementById("mStats").innerHTML=
+    `<span class="stat">سال: ${esc(r[3])}</span>
+     ${r[7]?`<span class="stat">مدت: ${esc(r[7])}</span>`:""}
+     <span class="stat">ژانر: ${esc(r[4])}</span>
+     <span class="stat" style="color:#ffd66b">IMDb: ★ ${esc(r[6])}</span>
+     ${r[8]?`<span class="stat" style="color:#ff5961">${esc(r[8])}</span>`:""}
+     ${r[9]?`<span class="stat">انتشار: ${esc(r[9])}</span>`:""}`;
+  document.getElementById("mDesc").textContent=r[5];
+  document.getElementById("modal").classList.add("show");
+}
+function closeModal(){document.getElementById("modal").classList.remove("show");}
+document.getElementById("search").addEventListener("input",e=>{query=e.target.value;render();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+setHero();renderCategorySections();render();
+</script>
+<script>
+const featuredIds = ["51","99","100","294","241","58","4","305"];
+let featuredIndex=0, featuredTimer=null;
+
+function featuredPosterURL(r){
+  const file = getPosterFile(r);
+  return file ? "image/" + encodeURIComponent(file).replace(/%2F/g,"/") : "";
+}
+
+function initFeatured(){
+  const wrap=document.getElementById("featuredSlider");
+  const dots=document.getElementById("featuredDots");
+  if(!wrap || !dots) return;
+
+  // Keep the existing featured order, then automatically fill missing/empty
+  // featured entries with titles that actually have a poster.
+  const selected=[];
+  featuredIds.forEach(id=>{
+    const r=data.find(x=>String(x[0])===String(id));
+    if(r && !selected.some(x=>String(x[0])===String(r[0]))) selected.push(r);
+  });
+  const posterRows=data.filter(r=>getPosterFile(r));
+  posterRows.forEach(r=>{
+    if(selected.length>=8) return;
+    if(!selected.some(x=>String(x[0])===String(r[0]))) selected.push(r);
+  });
+  const rows=selected.slice(0,8);
+
+  if(!rows.length){
+    wrap.innerHTML='<div class="featured-no-poster">هنوز پوستر ویژه‌ای اضافه نشده است</div>';
+    dots.innerHTML="";
+    return;
+  }
+
+  wrap.innerHTML=rows.map((r,i)=>{
+    const c=hashColor(r[1]);
+    const url=featuredPosterURL(r);
+    const visual=url
+      ? `<div class="featured-backdrop"><img src="${url}" alt="${esc(r[1])}" loading="${i===0?'eager':'lazy'}"></div>`
+      : `<div class="featured-backdrop"><div class="featured-no-poster" style="--slide-bg:linear-gradient(135deg,${c[0]},${c[1]})">${esc(r[2]||r[1])}</div></div>`;
+    return `<article class="featured-slide ${i===0?'active':''}" onclick="openDetailsByRow('${esc(r[0])}')">
+      ${visual}
+      <div class="featured-content">
+        <div class="featured-copy">
+          <span class="featured-kicker">پیشنهاد ویژه</span>
+          <div class="featured-fa">${esc(r[2]||r[1])}</div>
+          <div class="featured-en">${esc(r[1])}</div>
+          <div class="featured-meta">
+            <span>${esc(r[3])}</span>
+            <span>IMDb ★ ${esc(r[6])}</span>
+            ${r[7]?`<span>${esc(r[7])}</span>`:''}
+          </div>
+          <p class="featured-summary">${esc(r[5]||'')}</p>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+
+  dots.innerHTML=rows.map((_,i)=>
+    `<button class="featured-dot ${i===0?'active':''}" onclick="goFeatured(${i})" aria-label="اسلاید ${i+1}"></button>`
+  ).join("");
+
+  startFeatured();
+}
+
+function goFeatured(i){
+  const slides=[...document.querySelectorAll(".featured-slide")];
+  const dots=[...document.querySelectorAll(".featured-dot")];
+  if(!slides.length) return;
+  featuredIndex=(i+slides.length)%slides.length;
+  slides.forEach((x,j)=>x.classList.toggle("active",j===featuredIndex));
+  dots.forEach((x,j)=>x.classList.toggle("active",j===featuredIndex));
+}
+
+function startFeatured(){
+  clearInterval(featuredTimer);
+  featuredTimer=setInterval(()=>goFeatured(featuredIndex+1),6500);
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  initFeatured();
+  document.getElementById("featuredPrev")?.addEventListener("click",()=>{
+    goFeatured(featuredIndex-1); startFeatured();
+  });
+  document.getElementById("featuredNext")?.addEventListener("click",()=>{
+    goFeatured(featuredIndex+1); startFeatured();
+  });
+});
+</script></body>
+</html>
